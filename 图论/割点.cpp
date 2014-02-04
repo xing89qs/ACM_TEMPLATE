@@ -1,0 +1,19 @@
+int cut[MAXN],pre[MAXN],low[MAXN];
+int dfs_clock = 0;
+
+int dfs(int u,int fa){
+	int lowu = pre[u] = ++dfs_clock;
+	int child = 0;
+	for(int i = head[u];~i;i = nxt[i]){
+		int v = e[i];
+		if(!pre[v]){
+			child++;
+			int lowv = dfs(v,u);
+			lowu = min(lowu,lowv);
+			if(lowv>=pre[u]) cut[u] = true;
+		}else if(pre[v]<pre[u]&&v!=fa) lowu = min(lowu,pre[v]);
+	}
+	if(fa==-1&&child==1) cut[u] = 0;
+	low[u] = lowu;
+	return lowu;
+}
