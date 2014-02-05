@@ -1,4 +1,4 @@
-int cut[MAXN],pre[MAXN],low[MAXN];
+int cut[MAXN],pre[MAXN],low[MAXN],bridge[MAXN<<1];
 int dfs_clock = 0;
 
 int dfs(int u,int fa){
@@ -11,6 +11,7 @@ int dfs(int u,int fa){
 			int lowv = dfs(v,u);
 			lowu = min(lowu,lowv);
 			if(lowv>=pre[u]) cut[u] = true;
+			if(lowv>pre[u]) bridge[i] = true;
 		}else if(pre[v]<pre[u]&&v!=fa) lowu = min(lowu,pre[v]);
 	}
 	if(fa==-1&&child==1) cut[u] = 0;
