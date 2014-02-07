@@ -34,6 +34,10 @@ Type dijkstra(int s,int t,int n){
 			Edge ee = e[i];
 			if(!vis[ee.v]&&d[ee.v]>d[ed.v]+ee.cost){
 				d[ee.v] = d[ed.v]+ee.cost;
+				/*
+				 *  最短路树
+					p[ee.v] = MP(u,i);
+				*/
 				q.push(Edge(ee.v,d[ee.v]));
 			}
 		}
