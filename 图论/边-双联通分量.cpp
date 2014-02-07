@@ -5,14 +5,15 @@ int dfs_clock;
 int tarjan(int u,int fa){
 	int lowu = pre[u] = ++dfs_clock;
 	for(int i = head[u];~i;i = nxt[i]){
+		if(i==fa) continue;
 		int v = e[i];
 		if(!pre[v]){
-			int lowv = tarjan(v,u);
+			int lowv = tarjan(v,i^1);
 			lowu = min(lowu,lowv);
 			if(lowv>pre[u]){
 				bridge[i] = bridge[i^1] = true;
 			}
-		}else if(pre[v]<pre[u]&&v!=fa){
+		}else if(pre[v]<pre[u]){
 			lowu = min(lowu,pre[v]);
 		}
 	}
@@ -22,9 +23,10 @@ int tarjan(int u,int fa){
 void dfs(int u,int fa){
 	belong[u] = bcc_cnt;
 	for(int i = head[u];~i;i = nxt[i]){
+		if(i==fa) continue;
 		int v = e[i];
-		if(v!=fa&&!bridge[i]&&!belong[v]){
-			dfs(v,u);
+		if(!bridge[i]&&!belong[v]){
+			dfs(v,i^1);
 		}
 	}
 }
