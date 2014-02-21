@@ -5,6 +5,8 @@ int d[MAXN];
 int head[MAXN],nxt[MAXE],cur[MAXN];
 struct Edge{
 	int from,to,cap,flow;
+    Edge(int from,int to,int cap,int flow):from(from),to(to),cap(cap),flow(flow){
+    }
 } e[MAXE];
 
 class Dinic{
@@ -43,18 +45,13 @@ private:
 		}
 		return flow;
 	}
+    
 	void addEdge(int from,int to,int cap){
-		e[cnt].from = from;
-		e[cnt].to = to;
-		e[cnt].cap = cap;
-		e[cnt].flow = 0;
+        e[cnt] = Edge(from,to,cap,0);
 		int tmp = head[from];
 		head[from] = cnt;
 		nxt[cnt++] = tmp;
-		e[cnt].from = to;
-		e[cnt].to = from;
-		e[cnt].cap = 0;
-		e[cnt].flow = 0;
+        e[cnt] = Edge(tom,from,0,0);
 		tmp = head[to];
 		head[to] = cnt;
 		nxt[cnt++] = tmp;
