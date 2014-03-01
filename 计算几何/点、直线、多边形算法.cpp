@@ -4,6 +4,11 @@ Type Length(Point a,Point b){
 	return sqrt(x*x+y*y);
 }
 
+//长度
+Type Length(Vector v){
+    return sqrt(v.x*v.x+v.y*v.y);
+}
+
 //计算向量极角
 Type Angle(Vector v){
 	return atan2(v.y,v.x);
