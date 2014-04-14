@@ -187,3 +187,22 @@ Type Rotating_Calipers(Point *p,int np,Point *q,int nq){
 	return ans;
 }
 
+//旋转卡壳求包围点的最小面积（周长）的矩形，p是凸包，n是凸包点数
+pair<Type,Type> Rotating_Calipers(Point *p,int n){
+	p[n] = p[0];
+	Type min_area = 1e99,min_c = 1e99;//最小的矩形面积和矩形周长
+	int l = 1,r = 1,u = 1;
+	for(int i = 0;i<n;i++){
+		Vector v = ToUnit(p[i+1]-p[i]);
+		while(sign(Dot(v,p[r%n]-p[i])-Dot(v,p[(r+1)%n]-p[i]))<0) r++;
+		while(u<r||sign(Cross(v,p[u%n]-p[i])-Cross(v,p[(u+1)%n]-p[i]))<0) u++;
+		while(l<u||sign(Dot(v,p[l%n]-p[i])-Dot(v,p[(l+1)%n]-p[i]))>0) l++;
+		Type w = Dot(v,p[r%n]-p[i])-Dot(v,p[l%n]-p[i]);
+		Type h = DistanceToLine(p[u%n],Line(p[i],p[i+1]));
+		min_area = min(min_area,w*h);
+		min_c = min(min_c,2*(w+h));
+	}
+	return MP(min_area,min_c);
+}
+
+
