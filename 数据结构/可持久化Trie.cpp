@@ -1,27 +1,27 @@
-
 #define LETTER 2
 #define MAXN 600005
 #define MAXNODE 20000005
 
-int a[MAXN];
-
-const int DEPTH = 24;
-
-struct Node *EMPTY;
-
-struct Node{
-	Node *ch[LETTER];
-	int cnt;
-	void init(){
-		for(int i = 0;i<LETTER;i++) ch[i] = EMPTY;
-		cnt = 0;
-	}
-} nd[MAXNODE],*root[MAXN];
-
 class Per_Trie{
 public:
+	int a[MAXN];
+	const int DEPTH;
+	struct Node *EMPTY;
+	struct Node{
+		Node *ch[LETTER];
+		int cnt;
+		void init(){
+			for(int i = 0;i<LETTER;i++) ch[i] = EMPTY;
+			cnt = 0;
+		}
+	} nd[MAXNODE],*root[MAXN];
 	int cnt;
-	Per_Trie(int n):cnt(0){
+	
+	Per_Trie():DEPTH(24){
+	}
+
+	void init(int n){
+		cnt = 0;
 		EMPTY = newNode();
 		EMPTY->ch[0] = EMPTY->ch[1] = EMPTY;
 		root[0] = newNode();
@@ -51,4 +51,4 @@ public:
 		if(mxcnt) return (1<<d)+query(ld->ch[pos^1],rd->ch[pos^1],val,d-1);
 		else return query(ld->ch[pos],rd->ch[pos],val,d-1);
 	}
-};
+} per_trie;

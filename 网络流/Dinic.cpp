@@ -1,16 +1,17 @@
 #define MAXN 100005
 #define MAXE 2000005
 
-int d[MAXN];
-int head[MAXN],nxt[MAXE],cur[MAXN];
-struct Edge{
-	int from,to,cap,flow;
-    Edge(int from,int to,int cap,int flow):from(from),to(to),cap(cap),flow(flow){
-    }
-} e[MAXE];
 
 class Dinic{
 private:
+	int d[MAXN];
+	int head[MAXN],nxt[MAXE],cur[MAXN];
+	struct Edge{
+		int from,to,cap,flow;
+	    Edge(int from,int to,int cap,int flow):from(from),to(to),cap(cap),flow(flow){
+	    }
+	} e[MAXE];
+
 	int s,t,cnt;
 	int node;
 	bool bfs(){
@@ -57,8 +58,10 @@ private:
 		nxt[cnt++] = tmp;
 	}
 public:
-	Dinic():cnt(0),node(0){
+	void init(int n){
+		cnt = 0;
 	}
+
 	int maxFlow(){
 		int flow = 0;
 		while(bfs()){
@@ -72,5 +75,5 @@ public:
 		s = node++;t = node++;
 		for(int i = 0;i<node;i++) head[i] = -1;
 	}
-};
+} dinic;
 

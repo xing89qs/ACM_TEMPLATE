@@ -1,18 +1,20 @@
 #define MAXN 505
 
-int mx[MAXN<<2][MAXN<<2];
-int mi[MAXN<<2][MAXN<<2];
-int a[MAXN][MAXN];
 
-#define lson l,mid,rt<<1
-#define rson mid+1,r,rt<<1|1
-#define para pl,pr,pa
 
 class SegTree2D{
 public:
+	#define lson l,mid,rt<<1
+	#define rson mid+1,r,rt<<1|1
+	#define para pl,pr,pa
+
+	int mx[MAXN<<2][MAXN<<2];
+	int mi[MAXN<<2][MAXN<<2];
+	int a[MAXN][MAXN];
 	int n,m;
 	int x,y,x1,y1,x2,y2,v;
-	SegTree2D(int n,int m){
+
+	void init(int n,int m){
 		this->n = n;
 		this->m = m;
 		build1D(1,n,1);
@@ -120,4 +122,4 @@ public:
 			mi[pa][rt] = min(mi[pa<<1][rt],mi[pa<<1|1][rt]);
 		}
 	}
-};
+} segtree;

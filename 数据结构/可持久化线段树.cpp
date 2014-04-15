@@ -1,22 +1,22 @@
-
 #define MAXN 100005
 #define MAXNODE 2000005
 
-int a[MAXN],x[MAXN];
-
-struct Node{
-	Node *l,*r;
-	int cnt;
-	void init(){
-		l = r = NULL;
-		cnt = 0;
-	}
-} nd[MAXNODE],*root[MAXN];
 
 class Per_SegTree{
 public:
+	int a[MAXN],x[MAXN];
+	struct Node{
+		Node *l,*r;
+		int cnt;
+		void init(){
+			l = r = NULL;
+			cnt = 0;
+		}
+	} nd[MAXNODE],*root[MAXN];
+
 	int tot,m;//tot是结点数，m是离散化后值的个数
-	Per_SegTree(int n):tot(0){
+	void init(int n){
+		tot = 0;
 		m = disconcrete(n);
 		root[0] = build(1,m);
 		for(int i = 1;i<=n;i++)
@@ -64,4 +64,4 @@ public:
 		if(lcnt>=k) return query(ld->l,rd->l,l,mid,k);
 		else return query(ld->r,rd->r,mid+1,r,k-lcnt);
 	}
-};
+} per_seg;

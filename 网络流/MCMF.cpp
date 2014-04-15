@@ -1,27 +1,28 @@
 #define MAXN 1005 
 #define MAXE 100005
 
-typedef int CostType;
-
-struct Edge{
-	int from,to,cap,flow;
-	CostType cost;
-	Edge(int from,int to,int cap,int flow,CostType cost):
-		from(from),to(to),cap(cap),flow(flow),cost(cost){
-	}
-	Edge(){}
-} e[MAXE];
-
-int head[MAXN],nxt[MAXE],a[MAXN],p[MAXN];
-bool inq[MAXN];
-CostType d[MAXN];
-
 class MCMF{
 public:
+	typedef int CostType;
+	struct Edge{
+		int from,to,cap,flow;
+		CostType cost;
+		Edge(int from,int to,int cap,int flow,CostType cost):
+			from(from),to(to),cap(cap),flow(flow),cost(cost){
+		}
+		Edge(){}
+	} e[MAXE];
+
+	int head[MAXN],nxt[MAXE],a[MAXN],p[MAXN];
+	bool inq[MAXN];
+	CostType d[MAXN];
 	int cnt,s,t;
 	int node;
-	MCMF():cnt(0){
+	
+	void init(){
+		cnt = 0;
 	}
+
 	void addEdge(int from,int to,int cap,CostType cost){
 		e[cnt] = Edge(from,to,cap,0,cost);
 		int tmp = head[from];
