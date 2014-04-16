@@ -1,4 +1,4 @@
-int getFail(char* p){
+int getFail(char* p,int *f){
 	int m = strlen(p);
 	f[0] = f[1] = 0;
 	for(int i = 1;i<m;i++){
@@ -10,9 +10,9 @@ int getFail(char* p){
 }
 
 //s是匹配串，p是模版串
-bool find(char* s,char*p){
+bool find(char* s,char*p,int *f){
 	int n = strlen(s);
-	int m = getFail(p);
+	int m = getFail(p,f);
 	int j = 0;
 	for(int i = 0;i<n;i++){
 		while(j&&p[j]!=s[i]) j = f[j];

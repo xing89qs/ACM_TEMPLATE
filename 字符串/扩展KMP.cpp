@@ -1,4 +1,4 @@
-void getNext(const char *t,int n){
+void getNext(const char *t,int *nxt,int n){
 	nxt[0] = n;
 	int a = 0;
 	while(a<n-1&&t[a]==t[a+1]) a++;
@@ -16,15 +16,15 @@ void getNext(const char *t,int n){
 }
 
 //extend[i]求出s[i]和t的最长匹配长度
-void getExtend(const char *s,const char *t,int n,int m){
-	getNext(t,m);
+void getExtend(const char *s,const char *t,int *nxt,int *extend,int n,int m){
+	getNext(t,nxt,m);
 	int a = 0;
 	int len = min(n,m);
 	while(a<len&&s[a]==t[a]) a++;
 	extend[0] = a;
 	a = 0;
 	for(int i = 0;i<n;i++){
-		int p = a+extend[a]-1,l = next[i-a];
+		int p = a+extend[a]-1,l = nxt[i-a];
 		if(i+l-1>=p){
 			int j = max(p-i+1,0);
 			while(i+j<n&&j<m&&s[i+j]==t[j]) j++;
