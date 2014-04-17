@@ -1,4 +1,4 @@
-ass SplayTree{
+class SplayTree{
 public:
 	struct Node{
 		int sz;
