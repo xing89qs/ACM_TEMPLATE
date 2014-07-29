@@ -55,8 +55,3 @@ public:
 		return d[t];
 	}
 } dij;
-
-
-int main(){
-	return 0;
-}

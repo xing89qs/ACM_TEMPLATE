@@ -44,4 +44,32 @@ public:
 			}
 		}
 	}
+    void match(char *s){
+		Node *x = root;//x为当前走到的结点位置
+		int now = 0;//now为当前匹配长度
+		for(int i = 0;s[i];i++){
+			int c = s[i]-'a';
+			if(x->ch[c]){
+				now++;
+				x = x->ch[c];
+			}else{
+				while(x&&x->ch[c]==NULL) x = x->pre;
+				if(x==NULL){
+					x = root;
+					now = 0;
+				}else{
+					now = x->len+1;
+					x = x->ch[c];
+				}
+			}
+		}
+	}
+    //拓扑排序所有节点，n为len的最大值
+    void topSort(int n){
+        for(int i = 0;i<sam.cnt;i++) c[sam.nd[i].len]++;
+        for(int i = 1;i<=n;i++) c[i]+=c[i-1];
+        for(int i = 0;i<sam.cnt;i++){
+            b[--c[sam.nd[i].len]] = &sam.nd[i];
+        }
+    }
 };

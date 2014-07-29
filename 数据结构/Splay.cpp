@@ -129,7 +129,7 @@ public:
         }
         return EMPTY;
     }
-	Node* getSegMent(int l,int r){
+    Node* getSegMent(int l,int r){
         Node *x = findKth(l-1);
         Node *y = findKth(r+1);
         splay(x,TOP);splay(y,x);

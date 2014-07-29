@@ -8,8 +8,8 @@ private:
 	int head[MAXN],nxt[MAXE],cur[MAXN];
 	struct Edge{
 		int from,to,cap,flow;
-	    Edge(int from,int to,int cap,int flow):from(from),to(to),cap(cap),flow(flow){
-	    }
+	    Edge(int from,int to,int cap,int flow):from(from),to(to),cap(cap),flow(flow){}
+        Edge(){}
 	} e[MAXE];
 
 	int s,t,cnt;
@@ -52,14 +52,14 @@ private:
 		int tmp = head[from];
 		head[from] = cnt;
 		nxt[cnt++] = tmp;
-        e[cnt] = Edge(tom,from,0,0);
+        e[cnt] = Edge(to,from,0,0);
 		tmp = head[to];
 		head[to] = cnt;
 		nxt[cnt++] = tmp;
 	}
 public:
-	void init(int n){
-		cnt = 0;
+	void init(){
+		cnt = node = 0;
 	}
 
 	int maxFlow(){

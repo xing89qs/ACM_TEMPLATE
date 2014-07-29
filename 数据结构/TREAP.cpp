@@ -1,4 +1,4 @@
-ass Treap{
+class Treap{
 public:
 #define MAXN 100005
 	struct Node{
@@ -54,7 +54,7 @@ public:
 		else{
 			int d = (val<o->v?0:1);
 			insertVal(o->ch[d],val);
-			if(o->ch[d]>o) rotate(o,d^1);
+			if((*(o->ch[d]))<(*o)) rotate(o,d^1);
 		}
 		push_Up(o);
 	}
@@ -64,6 +64,7 @@ public:
 		if(o==NULL) return;
 		int d = o->cmp(val);
 		if(d==-1){
+            //把结点转到子树中再删除
 			if(o->ch[0]!=NULL&&o->ch[1]!=NULL){
 				int d2 = (o->ch[0]>o->ch[1]?1:0);
 				rotate(o,d2);removeVal(o->ch[d2],val);
