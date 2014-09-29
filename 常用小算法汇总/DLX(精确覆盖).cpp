@@ -41,12 +41,8 @@ public:
 
 	//删除列
 	void removeCol(int c){
-		/*
 		removeNode(c);
 		REP(i,D,c) removeRow(i);
-		*/
-		// 不要求精确覆盖则只删除这列不删除行
-		REP(i,D,c) removeNode(i);
 	}
 
 	void restoreNode(int c){
@@ -56,11 +52,8 @@ public:
 	
 	//恢复列
 	void restoreCol(int c){
-		/*
 		REP(i,U,c) restoreRow(i);
 		restoreNode(c);
-		*/
-		REP(i,U,c) restoreNode(i);
 	}
 
 	void removeRow(int r){
@@ -88,17 +81,13 @@ public:
 		//找S最小的列来删除加速
 		int c = R[0];
 		REP(i,R,0) if(S[i]<S[c]) c = i;
-		removeNode(c);
 		removeCol(c);
 		REP(i,D,c){
-			restoreNode(i);//精确覆盖则不要
-			REP(j,R,i) removeCol(j);
+			REP(j,R,i) removeCol(col[j]);
 			dfs(d+1,cost+::c[row[i]-1]);
-			REP(j,L,i) restoreCol(j);
-			removeNode(i);//精确覆盖不要
+			REP(j,L,i) restoreCol(col[j]);
 		}
 		restoreCol(c);
-		restoreNode(c);
 	}
 
 	int solve(){
@@ -107,4 +96,3 @@ public:
 		return ret;
 	}
 } dlx;
-

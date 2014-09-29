@@ -22,7 +22,7 @@ public:
 		e[cnt] = Edge(v,w);
 		int tmp = head[u];
 		head[u] = cnt;
-		next[cnt++] = tmp;
+		nxt[cnt++] = tmp;
 	}
 
 	int mxDis;
@@ -72,9 +72,6 @@ public:
 		mxDis = INF;
 		int root;getRoot(u,-1,root,sz[u]);
 		if(~fa[root]) sz[fa[root]] = sz[u]-sz[root];
-		int cnt = 0;
-		getDis(root,-1,0,cnt);
-		sort(dis,dis+cnt);
 		//处理以root为根的子树
 		ret[root] = solve(root,-1,0);
 		vis[root] = true;
