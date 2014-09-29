@@ -92,14 +92,11 @@ public:
         push_Down(x);
         while(x->fa!=goal){
             if(x->fa->fa==goal){
-                push_Down(x->fa);
-                push_Down(x);
+                push_Down(x->fa);push_Down(x);
                 rotate(x,x->fa->ch[0]==x);
             }else{
                 Node *fax = x->fa;
-                push_Down(fax->fa);
-                push_Down(fax);
-                push_Down(x);
+                push_Down(fax->fa);push_Down(fax);push_Down(x);
                 int d = fax->fa->ch[0]==fax;
                 if(fax->ch[d]==x){
                     rotate(x,d^1);
