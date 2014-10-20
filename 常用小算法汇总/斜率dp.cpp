@@ -1,9 +1,9 @@
 LL getY(int i){
-	//
+	//return dp[i]+a[i+1]*a[i+1];
 }
 
 LL getX(int i){
-	//
+	//return 2*a[i+1];
 }
 
 LL deltaY(int i,int j){

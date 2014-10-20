@@ -13,6 +13,7 @@ public:
 
 		for(int i = 0;i<=m;i++){
 			U[i] = i,D[i] = i,L[i] = i-1,R[i] = i+1;
+            col[i] = i;
 		}
 		R[m] = 0,L[0] = m;
 

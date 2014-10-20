@@ -131,3 +131,10 @@ public:
         return p[1];
     }
 } tc;
+
+/*
+    int main(void){
+        tc.dfs1(1,0);
+        tc.dfs2(1,1);
+    }
+ */
