@@ -4,6 +4,14 @@ public:
 	int sa[MAXN],t[MAXN],t2[MAXN],c[MAXN],rank[MAXN],height[MAXN];
 	int d[20][MAXN];
 	int logg[MAXN];
+    
+    Suffix_Array(){
+         int now = 0;
+         for(int i = 0;i<=MAXN;i++){
+             while((1<<(now+1))<=i) now++;
+             logg[i] = now;
+         }
+    }
 
 	void build_sa(int n){
 		int *x = t,*y = t2,m = 128;
@@ -40,12 +48,6 @@ public:
 	}
 
 	void init_RMQ(int n){
-		/*
-		   int now = 0;
-		   for(int i = 0;i<=MAXN;i++){
-		   while((1<<(now+1))<=i) now++;
-		   logg[i] = now;
-		   }*/
 		for(int i = 0;i<=n;i++) d[0][i] = height[i];
 		for(int i = 1;(1<<i)<=n;i++)
 			for(int j = 1;j+(1<<i)-1<=n;j++)

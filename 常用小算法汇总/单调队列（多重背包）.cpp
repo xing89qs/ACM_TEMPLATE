@@ -11,8 +11,9 @@ int q[100005];
 int main(void){
     int n,m;
     while(scanf("%d %d",&n,&m),n+m){
-        for(int i = 0;i<n;i++) scanf("%d",&a[i]);
-        for(int i = 0;i<n;i++) scanf("%d",&c[i]);
+        //n是种数，m是价值的最大值
+        for(int i = 0;i<n;i++) scanf("%d",&a[i]);//a是val
+        for(int i = 0;i<n;i++) scanf("%d",&c[i]);//c是每种val的个数
         for(int i = 1;i<=m;i++) dp[i] = false;
         dp[0] = true;
         int ans = 0;

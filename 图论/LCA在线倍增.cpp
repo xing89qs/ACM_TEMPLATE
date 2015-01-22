@@ -1,4 +1,4 @@
-class LCA{
+class Tree{
 public:
 	#define MAXN 100005
 	#define MAXE 200005
@@ -9,6 +9,7 @@ public:
 	void init(int n){
 		cnt = 0;
 		for(int i = 0;i<n;i++) head[i] = -1;
+        this->n = n;
 	}
 
 	inline void addEdge(int u,int v){
@@ -29,9 +30,8 @@ public:
 			if(~p[u][i-1]) p[u][i] = p[p[u][i-1]][i-1];
 			else p[u][i] = -1;
 		}
-		int sz = g[u].size();
-		for(int i = 0;i<sz;i++){
-			int v = g[u][i];
+        for(int i = head[u];~i;i = nxt[i]){
+			int v = e[i];
 			if(v==fa) continue;
 			dfs(v,u,d+1);
 		}

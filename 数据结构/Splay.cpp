@@ -223,5 +223,7 @@ public:
             push_Up(fax);
             root = pre;
         }
+        x->sz = 1;
+        x->ch[0] = x->ch[1] = EMPTY;
     }
 } splay;

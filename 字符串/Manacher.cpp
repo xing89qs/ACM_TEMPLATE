@@ -1,3 +1,4 @@
+//r[i]表示i的回文半径
 int manacher(char *c){
 	int n,j;
 	int max=0;

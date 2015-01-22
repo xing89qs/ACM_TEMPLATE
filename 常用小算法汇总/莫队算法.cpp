@@ -24,10 +24,6 @@ void removePos(int pos){
 }
 
 int solve(Query& q,int last,int l,int r){
-	while(l<q.l){
-		removePos(l);
-		l++;
-	}
 	while(l>q.l){
 		l--;
 		addPos(l);
@@ -39,7 +35,11 @@ int solve(Query& q,int last,int l,int r){
 	while(r>q.r){
 		removePos(r);
 		r--;
-	}
+    }
+    while(l<q.l){
+        removePos(l);
+        l++;
+    }
 	return last;
 }
 

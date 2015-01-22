@@ -22,6 +22,7 @@ public:
         memset(S,0,sizeof(S));
     }
     
+    //行列都是从1开始标号
     void addRow(int r,vector<int>& columns){
         int first = sz;
         for(int i = 0;i<(int)columns.size();i++){
