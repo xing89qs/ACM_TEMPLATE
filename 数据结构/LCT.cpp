@@ -62,13 +62,13 @@ public:
     }
 
     void DOWN(Node *x){
-        if(!x->rt) DOWN(x->pre);
+        if(x->rt!=EMPTY&&!x->rt) DOWN(x->pre);
         push_Down(x);
     }
 
     void splay(Node *x){
         DOWN(x);
-        while(!x->rt){
+        while(x->rt!=EMPTY&&!x->rt){
             Node *f = x->pre;Node *ff = f->pre;
             if(f->rt) rotate(x);
             else if((ff->ch[1]==f)==(f->ch[1]==x)){

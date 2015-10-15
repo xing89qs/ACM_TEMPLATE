@@ -19,12 +19,12 @@ public:
 		nxt[cnt++] = tmp;
 	}
 
-	int dis[MAXN];
+	int dep[MAXN];
 	int p[MAXN][20];
 	int n;
 
 	void dfs(int u,int fa,int d){
-		dis[u] = d;
+		dep[u] = d;
 		p[u][0] = fa;
 		for(int i = 1;(1<<i)<=n;i++){
 			if(~p[u][i-1]) p[u][i] = p[p[u][i-1]][i-1];
@@ -38,9 +38,9 @@ public:
 	}
 
 	int LCA(int u,int v){
-		if(dis[u]>dis[v]) swap(u,v);
-		if(dis[u]<dis[v]){
-			int offset = dis[v]-dis[u];
+		if(dep[u]>dep[v]) swap(u,v);
+		if(dep[u]<dep[v]){
+			int offset = dep[v]-dep[u];
 			for(int i = 0;(1<<i)<=n;i++) if(offset&(1<<i)) v = p[v][i];
 		}
 		if(u!=v){

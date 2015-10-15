@@ -60,9 +60,11 @@ void getLineCircleIntersection(Line l,Circle C,vector<Point>& ret){
 		ret.PB(l.a+v*t1);
 	}else{
 		t1 = (-f-sqrt(delta))/(2*e);
-		ret.PB(l.a+v*t1);
+		if(sign(t1-1)<=0&&sign(t1)>=0) //这条判断表示线段
+        ret.PB(l.a+v*t1);
 		t2 = (-f+sqrt(delta))/(2*e);
-		ret.PB(l.a+v*t2);
+		if(sign(t2-1)<=0&&sign(t2)>=0) //这条判断表示线段
+        ret.PB(l.a+v*t2);
 	}
 }
 
@@ -82,6 +84,21 @@ int getCircleInterSection(Circle c1,Circle c2,vector<Point> &ret){
 	if(p1==p2) return 1;
 	ret.PB(p2);
 	return 2;
+}
+
+//两圆面积交
+Type getInterArea(Circle a,Circle b){
+    Type dis = Length(a.p,b.p);
+    if(sign(a.r+b.r-dis)<=0) return 0;
+    if(sign(abs(a.r-b.r)-dis)>=0){
+        Type r = min(a.r,b.r);
+        return PI*r*r;
+    }
+    Type cosX = (dis*dis+a.r*a.r-b.r*b.r)/(2*dis*a.r);
+    Type X = acos(cosX);
+    Type cosY = (dis*dis+b.r*b.r-a.r*a.r)/(2*dis*b.r);
+    Type Y = acos(cosY);
+    return a.r*a.r*X+b.r*b.r*Y-dis*a.r*sin(X);
 }
 
 //三角形外接圆

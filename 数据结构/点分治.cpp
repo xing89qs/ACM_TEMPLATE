@@ -15,7 +15,7 @@ public:
 
 	void init(int n){
 		cnt = 0;
-		for(int i = 0;i<n;i++) head[i] = -1;
+		for(int i = 0;i<n;i++) head[i] = -1,vis[i] = 0;
 	}
 
 	inline void addEdge(int u,int v,int w){

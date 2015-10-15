@@ -66,10 +66,11 @@ public:
 	}
     //拓扑排序所有节点，n为len的最大值
     void topSort(int n){
-        for(int i = 0;i<sam.cnt;i++) c[sam.nd[i].len]++;
+        for(int i = 0;i<=n;i++) c[i] = 0;
+        for(int i = 0;i<cnt;i++) c[nd[i].len]++;
         for(int i = 1;i<=n;i++) c[i]+=c[i-1];
-        for(int i = 0;i<sam.cnt;i++){
-            b[--c[sam.nd[i].len]] = &sam.nd[i];
+        for(int i = 0;i<cnt;i++){
+            b[--c[nd[i].len]] = &nd[i];
         }
     }
 };

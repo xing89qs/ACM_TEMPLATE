@@ -8,6 +8,7 @@ public:
 	}
 
 	//n个方程 x == a[i] (mod b[i]),且b[i]两两互质
+    //y*w*a[i]可能爆long long，需要用long long 模乘法解决
 	LL china(int n){
 		LL m = 1,d,y,x = 0;
 		for(int i = 0;i<n;i++) m*=b[i];

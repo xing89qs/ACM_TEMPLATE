@@ -4,7 +4,7 @@ LL mul(LL a,LL b){
 	tmp+=tmp;
 	if(tmp>=MOD) tmp-=MOD;
 	if(b&1ll){
-		tmp = tmp+b;
+		tmp = tmp+a;
 		if(tmp>=MOD) tmp-=MOD;
 	}
 	return tmp;
