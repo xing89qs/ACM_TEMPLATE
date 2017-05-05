@@ -1,4 +1,4 @@
-//最大表示法
+//鏈�澶ц〃绀烘硶
 int MaxRep(char *s,int len)
 {
     int i = 0,j = 1,k = 0;
