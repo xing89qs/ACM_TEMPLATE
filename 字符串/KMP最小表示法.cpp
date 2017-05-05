@@ -1,4 +1,4 @@
-//最小表示法
+//鏈�灏忚〃绀烘硶
 int MinRep(char *s,int len)
 {
     int i = 0,j = 1,k = 0;
