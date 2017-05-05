@@ -1,4 +1,4 @@
-//对于YES_LEFT或者NO_RIGHT
+//瀵逛簬YES_LEFT鎴栬�匩O_RIGHT
 int biSearch(int l, int r, int val)
 {
     int mid, left = l, right = r;
@@ -14,7 +14,7 @@ int biSearch(int l, int r, int val)
 }
 
 
-//对于YES_RIGHT或者NO_LEFT
+//瀵逛簬YES_RIGHT鎴栬�匩O_LEFT
 int biSearch(int l, int r, int val)
 {
     int mid, left = l, right = r;
