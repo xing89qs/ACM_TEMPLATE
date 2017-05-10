@@ -4,6 +4,67 @@
 
 
 //适于稠密图，DFS找增广路快
+
+
+//邻接矩阵
+class Hungary_DFS
+{
+private:
+    int g[MAXN][MAXN];
+    int vis[MAXN];
+    int mx[MAXN],my[MAXN];
+    int n;
+    int nx,ny;
+
+    bool dfs(int u)
+    {
+        for(int v = 1; v <= ny; v++)
+        {
+            if(!vis[v] && g[u][v])
+            {
+                vis[v] = true;
+                if(my[v] == -1 || dfs(my[v]))
+                {
+                    my[v] = u;
+                    mx[u] = v;
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+public:
+    void init()
+    {
+        memset(mx, -1, sizeof(mx));
+        memset(my, -1, sizeof(my));
+    }
+
+    int hungary()
+    {
+        int res = 0;
+        for(int i = 1; i <= nx; i++)
+        {
+            if(mx[i] == -1)
+            {
+                memset(vis, 0, sizeof(vis));
+                if(dfs(i))
+                    res++;
+            }
+        }
+        return res;
+    }
+
+    void buildGraph()
+    {
+        n = nx + ny;
+    }
+} hungaryDFS;
+
+
+
+//邻接表
 class Hungary_DFS
 {
 private:
@@ -74,6 +135,65 @@ public:
     void buildGraph()
     {
         memset(head,-1,sizeof(head));
+        n = nx + ny;
+    }
+} hungaryDFS;
+
+
+
+//STL
+class Hungary_DFS
+{
+private:
+    vector <int> G[MAXN];
+    int vis[MAXM];
+    int mx[MAXN],my[MAXN];
+    int n;
+    int nx,ny;
+
+    bool dfs(int u)
+    {
+        for(int i = 0; i < G[u].size(); i++)
+        {
+            int v = G[u][i];
+            if(!vis[v])
+            {
+                vis[v] = true;
+                if(my[v] == -1 || dfs(my[v]))
+                {
+                    my[v] = u;
+                    mx[u] = v;
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+public:
+    void init()
+    {
+        memset(mx, -1, sizeof(mx));
+        memset(my, -1, sizeof(my));
+    }
+
+    int hungary()
+    {
+        int res = 0;
+        for(int i = 1; i <= nx; i++)
+        {
+            if(mx[i] == -1)
+            {
+                memset(vis, 0, sizeof(vis));
+                if(dfs(i))
+                    res++;
+            }
+        }
+        return res;
+    }
+
+    void buildGraph()
+    {
         n = nx + ny;
     }
 } hungaryDFS;
