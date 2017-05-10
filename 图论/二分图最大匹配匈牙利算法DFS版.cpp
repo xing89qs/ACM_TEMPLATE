@@ -58,7 +58,7 @@ public:
 
     void buildGraph()
     {
-        n = nx + ny;
+        memset(g,0,sizeof(g));
     }
 } hungaryDFS;
 
@@ -194,6 +194,7 @@ public:
 
     void buildGraph()
     {
-        n = nx + ny;
+        for(int i=0; i<=n; i++)
+            G.clear();
     }
 } hungaryDFS;
