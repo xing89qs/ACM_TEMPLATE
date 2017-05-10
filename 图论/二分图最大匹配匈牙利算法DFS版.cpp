@@ -146,7 +146,7 @@ class Hungary_DFS
 {
 private:
     vector <int> G[MAXN];
-    int vis[MAXM];
+    int vis[MAXN];
     int mx[MAXN],my[MAXN];
     int n;
     int nx,ny;
@@ -195,6 +195,6 @@ public:
     void buildGraph()
     {
         for(int i=0; i<=n; i++)
-            G.clear();
+            G[i].clear();
     }
 } hungaryDFS;
