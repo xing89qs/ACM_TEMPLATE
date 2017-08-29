@@ -93,7 +93,7 @@ bool OnSegMent(Point &p,SegMent& s){
 	return sign(Cross(s.a-p,s.b-p))==0&&sign(Dot(s.a-p,s.b-p))<=0;
 }
 
-//线段不规范相交
+//线段不规范相交（使用的时候结合线段不规范相交的函数一起判断）
 bool SegMentNotProperIntersect(SegMent& s1,SegMent& s2){
 	return OnSegMent(s1.a,s2)||OnSegMent(s1.b,s2)
 		||OnSegMent(s2.a,s1)||OnSegMent(s2.b,s1);
