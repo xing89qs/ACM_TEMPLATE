@@ -1,4 +1,4 @@
-//Stoer_Wagner算法，复杂度O(n^3)
+//Stoer_Wagner（全局最小割）算法，复杂度O(n^3)
 
 #define MAXN 1005
 #define INF 0x3f3f3f3f

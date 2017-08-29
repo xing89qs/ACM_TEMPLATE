@@ -1,3 +1,4 @@
+//快速幂模板
 
 #define long long LL
 

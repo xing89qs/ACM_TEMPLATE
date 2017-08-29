@@ -1,3 +1,5 @@
+//LCA在线倍增
+
 class Tree{
 public:
 	#define MAXN 100005
@@ -52,4 +54,10 @@ public:
 		}
 		return u;
 	}
+
+	//求树上两点距离
+	int dis(int u,int v)
+    {
+        return dep[u]+dep[v]-2*dep[LCA(u,v)];
+    }
 } lca;

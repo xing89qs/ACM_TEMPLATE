@@ -1,6 +1,8 @@
+//Dinic（最大流）算法
+
 #define MAXN 100005
 #define MAXE 2000005
-
+#define INF 0x3f3f3f3f
 
 class Dinic{
 private:
@@ -13,9 +15,9 @@ private:
 	} e[MAXE];
 
 	int s,t,cnt;
-	int node;
+	int n,m;
 	bool bfs(){
-		for(int i = 0;i<node;i++) d[i] = -1;
+		for(int i = 0;i<=t;i++) d[i] = -1;
 		d[s] = 0;
 		queue<int> q;
 		q.push(s);
@@ -46,7 +48,7 @@ private:
 		}
 		return flow;
 	}
-    
+
 	void addEdge(int from,int to,int cap){
         e[cnt] = Edge(from,to,cap,0);
 		int tmp = head[from];
@@ -58,22 +60,25 @@ private:
 		nxt[cnt++] = tmp;
 	}
 public:
-	void init(){
-		cnt = node = 0;
+	void init(int n,int m){
+		cnt = 0;
+		this -> n = n;
+		this -> m = m;
 	}
 
 	int maxFlow(){
 		int flow = 0;
 		while(bfs()){
-			for(int i = 0;i<node;i++) cur[i] = head[i];
+			for(int i = 0;i<=t;i++) cur[i] = head[i];
 			flow+=dfs(s,INF);
 		}
 		return flow;
 	}
 
 	void buildGraph(){
-		s = node++;t = node++;
-		for(int i = 0;i<node;i++) head[i] = -1;
+		s = 0;
+		t = n;
+		for(int i = 0; i<=t; i++) head[i] = -1;
 	}
 } dinic;
 

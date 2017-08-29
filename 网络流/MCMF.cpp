@@ -1,5 +1,8 @@
-#define MAXN 1005 
+//MCMF（费用流）算法
+
+#define MAXN 1005
 #define MAXE 100005
+#define INF 0x3f3f3f3f
 
 class MCMF{
 public:
@@ -7,9 +10,7 @@ public:
 	struct Edge{
 		int from,to,cap,flow;
 		CostType cost;
-		Edge(int from,int to,int cap,int flow,CostType cost):
-			from(from),to(to),cap(cap),flow(flow),cost(cost){
-		}
+		Edge(int from,int to,int cap,int flow,CostType cost):from(from),to(to),cap(cap),flow(flow),cost(cost){}
 		Edge(){}
 	} e[MAXE];
 
@@ -18,9 +19,12 @@ public:
 	CostType d[MAXN];
 	int cnt,s,t;
 	int node;
-	
-	void init(){
+	int n,m;
+
+	void init(int n,int m){
 		cnt = 0;
+		this -> n = n;
+		this -> m = m;
 	}
 
 	void addEdge(int from,int to,int cap,CostType cost){
@@ -33,6 +37,7 @@ public:
 		head[to] = cnt;
 		nxt[cnt++] = tmp;
 	}
+
 	bool spfa(int &flow,CostType &cost){
 		for(int i = 0;i<=node;i++){
 			d[i] = INF;
@@ -68,15 +73,20 @@ public:
 		}
 		return true;
 	}
+
+	//Type maxFlow(){
 	int maxFlow(){
 		int flow = 0;
 		CostType cost = 0;
 		while(spfa(flow,cost));
 		return flow;
+		//return cost;
 	}
+
 	void buildGraph(){
 		memset(head,-1,sizeof(head));
-		node = n;
-		s = 1,t = 1;
+		s = 0;
+		t = n;
+		node = t;
 	}
- };
+ } mcmf;
