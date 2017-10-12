@@ -1,7 +1,7 @@
 
 class Trie{
 public:
-	#define CHAR_NUM 26 //大小写字母都考虑则是52，再加上数字是62
+	#define CHAR_NUM 26 //10--只有数字，26--只有大写/小写字母，52--大小写字母都有，62--数字+大小写字母
 	#define MAXNODE 500005
 
 	struct node{
@@ -30,6 +30,7 @@ public:
         int temp = root;
         for(int i = 0;s[i];i++){
             int pos = s[i]-'a';
+            //int pos = s[i]-'0';
             if(nd[temp].next[pos]==-1) nd[temp].next[pos] = newnode();
             temp = nd[temp].next[pos];
             nd[temp].val++;
@@ -40,9 +41,11 @@ public:
         int temp = root;
 		for(int i = 0;s[i];i++){
             int pos = s[i]-'a';
+            //int pos = s[i]-'0';
             if(nd[temp].next[pos]==-1){
                 return 0;
-            }else
+            }
+            else
                 temp = nd[temp].next[pos];
         }
         return nd[temp].val;
