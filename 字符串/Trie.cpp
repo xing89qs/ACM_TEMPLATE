@@ -1,7 +1,7 @@
 
 class Trie{
 public:
-	#define CHAR_NUM 26
+	#define CHAR_NUM 26 //大小写字母都考虑则是52，再加上数字是62
 	#define MAXNODE 500005
 
 	struct node{
@@ -13,8 +13,8 @@ public:
 		}
 	} nd[MAXNODE];
 
-	int root = 0;
-	int cnt = 0;
+	int root;
+	int cnt;
 
     void init(){
 		cnt = 0;
@@ -42,7 +42,7 @@ public:
             int pos = s[i]-'a';
             if(nd[temp].next[pos]==-1){
                 return 0;
-            }else 
+            }else
                 temp = nd[temp].next[pos];
         }
         return nd[temp].val;
