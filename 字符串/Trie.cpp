@@ -7,9 +7,11 @@ public:
 	struct node{
 	    int next[CHAR_NUM];
 	    int val;
+	    bool flag;  //字符串结束标记
 	    void init(){
 	        memset(next,-1,sizeof(next));
 	        val = 0;
+	        flag = false;
 		}
 	} nd[MAXNODE];
 
@@ -35,6 +37,7 @@ public:
             temp = nd[temp].next[pos];
             nd[temp].val++;
         }
+        nd[temp].flag = true;
     }
 
     int find(char *s){
