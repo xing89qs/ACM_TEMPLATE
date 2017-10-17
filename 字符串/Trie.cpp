@@ -8,6 +8,7 @@ class Trie
 public:
 #define CHAR_NUM 26 //2--01（异或）字典树，10--只有数字，26--只有大写/小写字母，52--大小写字母都有，62--数字+大小写字母
 #define MAXNODE 500005
+//#define MAXNODE 5000005   //01（异或）字典树的结点数量（必要时候再*2或*10）
 
     struct node
     {
