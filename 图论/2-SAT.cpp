@@ -6,7 +6,7 @@
 class TwoSat
 {
 public:
-    int head[MAXN];
+    int head[MAXN<<1];
     struct Edge
     {
         int to,next;
@@ -17,35 +17,27 @@ public:
     int mark[MAXN<<1];  //mark[i<<1]==1，表示点i被选择；mark[i<<1|1]==1，表示点i没有被选择
     int s[MAXN<<1];
     int c,cnt,dfs_clock;
+    int n,m;
+
+    stack <int> sta;
 
     int dfn[MAXN<<1];
     int low[MAXN<<1];
     int belong[MAXN<<1];
-    int color[MAXN<<1]
+    int color[MAXN<<1];
 
     //使用前调用
-    void init(int n)
+    void init(int n,int m)
     {
-        cnt = 0;
-        dfs_clock = 0;
-        for(int i = 0; i<2*n; i++) head[i] = -1,mark[i] = 0;
-    }
-
-    bool dfs(int u) //用来判断当前的强连通分量当中会不会出现矛盾
-    {
-
-        if(mark[u^1]) return false; //如果需要被选的不能被选那么矛盾
-        if(mark[u]) return true;    //如果需要被选的已经被选，那么当前联通分量一定    不会出现矛盾
-        mark[u] = true; //如果当前点需要被选，那么选上它，并且标记
-        s[c++] = u; //当前的强连通分量加上这个点
-        //找到与当前点相连点，判断他们的状态
-        for(int i = head[u]; ~i; i = e[i].next)
-        {
-            int v = e[i].to;
-            if(!dfs(v))
-                return false;
-        }
-        return true;
+        this -> n = n;
+        this -> m = m;
+        cnt = dfs_clock = 0;
+        memset(dfn,0,sizeof(dfn));
+        memset(belong,0,sizeof(belong));
+        memset(color,0,sizeof(color));
+        memset(mark,0,sizeof(mark));
+        while(!sta.empty())
+            sta.pop();
     }
 
     inline void addEdge(int u,int v)
@@ -59,7 +51,7 @@ public:
     {
         dfn[u] = low[u] = ++dfs_clock;
         mark[u] = 1;
-        s.push( u);
+        sta.push(u);
         for(int i = head[u]; ~i; i = e[i].next)
         {
             int v = e[i].to;
@@ -76,10 +68,10 @@ public:
             int temp;
             do
             {
-                temp = s.top();
+                temp = sta.top();
                 belong[temp] = cnt;
                 mark[temp] = 2;
-                s.pop();
+                sta.pop();
             }
             while(temp!=u);
             cnt++;
@@ -128,6 +120,22 @@ public:
         }
     }
 
+    bool dfs(int u) //用来判断当前的强连通分量当中会不会出现矛盾
+    {
+        if(mark[u^1]) return false; //如果需要被选的不能被选那么矛盾
+        if(mark[u]) return true;    //如果需要被选的已经被选，那么当前联通分量一定    不会出现矛盾
+        mark[u] = true; //如果当前点需要被选，那么选上它，并且标记
+        s[c++] = u; //当前的强连通分量加上这个点
+        //找到与当前点相连点，判断他们的状态
+        for(int i = head[u]; ~i; i = e[i].next)
+        {
+            int v = e[i].to;
+            if(!dfs(v))
+                return false;
+        }
+        return true;
+    }
+
     //n是变量数
     bool solve(int n)   //暴力求字典序最小的解（复杂度O(n*m)）
     {
@@ -148,8 +156,8 @@ public:
         return true;
     }
 
-    void buildGraph(int n)
+    void buildGraph()
     {
-        init(n);
+        for(int i = 0; i<2*n; i++) head[i] = -1,mark[i] = 0;
     }
 } twosat;
