@@ -16,7 +16,7 @@ public:
 
     int mark[MAXN<<1];  //mark[i<<1]==1，表示点i被选择；mark[i<<1|1]==1，表示点i没有被选择
     int s[MAXN<<1];
-    int c,cnt,dfs_clock;
+    int c,cnt,scc_cnt,dfs_clock;
     int n,m;
 
     stack <int> sta;
@@ -31,11 +31,10 @@ public:
     {
         this -> n = n;
         this -> m = m;
-        cnt = dfs_clock = 0;
+        cnt = scc_cnt = dfs_clock = 0;
         memset(dfn,0,sizeof(dfn));
         memset(belong,0,sizeof(belong));
         memset(color,0,sizeof(color));
-        memset(mark,0,sizeof(mark));
         while(!sta.empty())
             sta.pop();
     }
@@ -69,12 +68,12 @@ public:
             do
             {
                 temp = sta.top();
-                belong[temp] = cnt;
+                belong[temp] = scc_cnt;
                 mark[temp] = 2;
                 sta.pop();
             }
             while(temp!=u);
-            cnt++;
+            scc_cnt++;
         }
     }
 
