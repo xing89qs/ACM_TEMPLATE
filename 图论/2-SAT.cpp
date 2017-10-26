@@ -15,16 +15,20 @@ public:
     } e[MAXE];
 
     int mark[MAXN<<1];  //mark[i<<1]==1，表示点i被选择；mark[i<<1|1]==1，表示点i没有被选择
-    int s[MAXN<<1];
-    int c,cnt,scc_cnt,dfs_clock;
+    int cnt,scc_cnt,dfs_clock;
     int n,m;
+    int c;
 
     stack <int> sta;
+    vector <int> nG[MAXN];    //缩点后建立的新图
 
     int dfn[MAXN<<1];
     int low[MAXN<<1];
     int belong[MAXN<<1];
-    int color[MAXN<<1];
+    int color[MAXN<<1]; //求解任意一组可行解时记录点的颜色
+    int s[MAXN<<1];
+    int conflict[MAXN<<1];  //记录新图中的冲突点
+    int indegree[MAXN<<1];  //入度
 
     //使用前调用
     void init(int n,int m)
@@ -35,6 +39,10 @@ public:
         memset(dfn,0,sizeof(dfn));
         memset(belong,0,sizeof(belong));
         memset(color,0,sizeof(color));
+        memset(conflict,0,sizeof(conflict));
+        memset(indegree,0,sizeof(indegree));
+        for(int i=0; i<MAXN; i++)
+            nG[i].clear();
         while(!sta.empty())
             sta.pop();
     }
@@ -46,7 +54,9 @@ public:
         head[u] = cnt++;
     }
 
-    void tarjan(int u)
+
+    /*判断2-SAT问题是否有解*/
+    void tarjan(int u)  //Tarjan算法求解强连通分量并缩点
     {
         dfn[u] = low[u] = ++dfs_clock;
         mark[u] = 1;
@@ -64,6 +74,7 @@ public:
         }
         if(dfn[u]==low[u])
         {
+            scc_cnt++;
             int temp;
             do
             {
@@ -73,11 +84,10 @@ public:
                 sta.pop();
             }
             while(temp!=u);
-            scc_cnt++;
         }
     }
 
-    bool check()    //利用强连通缩点判断2-SAT问题是否有解
+    bool check()    //判断缩点后有没有冲突
     {
         for(int i = 0; i<2*n; i++)
         {
@@ -92,10 +102,36 @@ public:
         return true;
     }
 
-    void topoSort() //按照拓扑序求得任意一组解
+
+    /*求2-SAT问题的任意一组可行解*/
+    void cal()  //建立缩点后的新图并为之后的拓扑排序染色做准备
+    {
+        for(int i = 0; i<n; i++)
+        {
+            if(!conflict[belong[i<<1]])
+            {
+                conflict[belong[i<<1]] = belong[i<<1|1];
+                conflict[belong[i<<1|1]] = belong[i<<1];
+            }
+        }
+        for(int i = 0; i<2*n; i++)
+        {
+            for(int j = head[i]; ~j; j = e[j].next)
+            {
+                int v = e[j].to;
+                if(belong[i]!=belong[v])
+                {
+                    indegree[belong[i]]++;
+                    nG[belong[v]].push_back(belong[i]);
+                }
+            }
+        }
+    }
+
+    void topoSort() //拓扑排序
     {
         queue<int> q;
-        for(int i = 1; i<t; i++)
+        for(int i = 1; i<=scc_cnt; i++)
         {
             if(!indegree[i])
                 q.push(i);
@@ -109,9 +145,9 @@ public:
                 color[u] = 1;
                 color[conflict[u]] = 2; //conflict数组记录的是与当前点冲突的点
             }
-            for(int i = head[u]; ~i; i = e[i].next)
+            for(int i = 0; i<nG[u].size(); i++)
             {
-                int v = e[i].to;
+                int v = nG[u][i];
                 indegree[v]--;
                 if(!indegree[v])
                     q.push(v);
@@ -119,7 +155,9 @@ public:
         }
     }
 
-    bool dfs(int u) //用来判断当前的强连通分量当中会不会出现矛盾
+
+    /*暴力求2-SAT问题的字典序最小解（复杂度O(n*m)）*/
+    bool dfs(int u) //判断当前的强连通分量当中有没有出现矛盾
     {
         if(mark[u^1]) return false; //如果需要被选的不能被选那么矛盾
         if(mark[u]) return true;    //如果需要被选的已经被选，那么当前联通分量一定    不会出现矛盾
@@ -135,8 +173,7 @@ public:
         return true;
     }
 
-    //n是变量数
-    bool solve(int n)   //暴力求字典序最小的解（复杂度O(n*m)）
+    bool solve(int n)   //n是变量数
     {
         for(int i = 0; i<n*2; i+=2)
         {
