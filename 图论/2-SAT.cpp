@@ -17,7 +17,7 @@ public:
     int mark[MAXN<<1];  //mark[i<<1]==1，表示点i被选择；mark[i<<1|1]==1，表示点i没有被选择
     int cnt,scc_cnt,dfs_clock;
     int n,m;
-    int c;
+    int top;
 
     stack <int> sta;
     vector <int> nG[MAXN];    //缩点后建立的新图
@@ -26,9 +26,9 @@ public:
     int low[MAXN<<1];
     int belong[MAXN<<1];
     int color[MAXN<<1]; //求解任意一组可行解时记录点的颜色
-    int s[MAXN<<1];
-    int conflict[MAXN<<1];  //记录新图中的冲突点
-    int indegree[MAXN<<1];  //入度
+    int sta[MAXN<<1];   //数组模拟栈
+    int conf[MAXN<<1];  //记录新图中的冲突点
+    int ind[MAXN<<1];  //入度
 
     //使用前调用
     void init(int n,int m)
@@ -36,11 +36,12 @@ public:
         this -> n = n;
         this -> m = m;
         cnt = scc_cnt = dfs_clock = 0;
+        top = 0;
         memset(dfn,0,sizeof(dfn));
         memset(belong,0,sizeof(belong));
         memset(color,0,sizeof(color));
-        memset(conflict,0,sizeof(conflict));
-        memset(indegree,0,sizeof(indegree));
+        memset(conf,0,sizeof(conf));
+        memset(ind,0,sizeof(ind));
         for(int i=0; i<MAXN; i++)
             nG[i].clear();
         while(!sta.empty())
@@ -108,10 +109,10 @@ public:
     {
         for(int i = 0; i<n; i++)
         {
-            if(!conflict[belong[i<<1]])
+            if(!conf[belong[i<<1]])
             {
-                conflict[belong[i<<1]] = belong[i<<1|1];
-                conflict[belong[i<<1|1]] = belong[i<<1];
+                conf[belong[i<<1]] = belong[i<<1|1];
+                conf[belong[i<<1|1]] = belong[i<<1];
             }
         }
         for(int i = 0; i<2*n; i++)
@@ -121,7 +122,7 @@ public:
                 int v = e[j].to;
                 if(belong[i]!=belong[v])
                 {
-                    indegree[belong[i]]++;
+                    ind[belong[i]]++;
                     nG[belong[v]].push_back(belong[i]);
                 }
             }
@@ -133,7 +134,7 @@ public:
         queue<int> q;
         for(int i = 1; i<=scc_cnt; i++)
         {
-            if(!indegree[i])
+            if(!ind[i])
                 q.push(i);
         }
         while(!q.empty())
@@ -143,13 +144,13 @@ public:
             if(!color[u])
             {
                 color[u] = 1;
-                color[conflict[u]] = 2; //conflict数组记录的是与当前点冲突的点
+                color[conf[u]] = 2; //conf数组记录的是与当前点冲突的点
             }
             for(int i = 0; i<nG[u].size(); i++)
             {
                 int v = nG[u][i];
-                indegree[v]--;
-                if(!indegree[v])
+                ind[v]--;
+                if(!ind[v])
                     q.push(v);
             }
         }
@@ -162,7 +163,7 @@ public:
         if(mark[u^1]) return false; //如果需要被选的不能被选那么矛盾
         if(mark[u]) return true;    //如果需要被选的已经被选，那么当前联通分量一定    不会出现矛盾
         mark[u] = true; //如果当前点需要被选，那么选上它，并且标记
-        s[c++] = u; //当前的强连通分量加上这个点
+        sta[top++] = u; //当前的强连通分量加上这个点
         //找到与当前点相连点，判断他们的状态
         for(int i = head[u]; ~i; i = e[i].next)
         {
@@ -179,11 +180,11 @@ public:
         {
             if(!mark[i]&&!mark[i^1])
             {
-                c = 0;
+                top = 0;
                 if(!dfs(i)) //如果矛盾，那么这个强连通分量里的点都不能选取
                 {
-                    while(c>0)
-                        mark[s[--c]] = false;
+                    while(top>0)
+                        mark[sta[--top]] = false;
                     if(!dfs(i^1))
                         return false;
                 }
@@ -194,6 +195,7 @@ public:
 
     void buildGraph()
     {
-        for(int i = 0; i<2*n; i++) head[i] = -1,mark[i] = 0;
+        memset(head,-1,sizeof(head));
+        memset(mark,0,sizeof(mark));
     }
 } twosat;
