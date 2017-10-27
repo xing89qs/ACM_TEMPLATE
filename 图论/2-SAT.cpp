@@ -1,5 +1,20 @@
 //2-SAT模板
 
+/*
+x : 选x; ~x : 不选x
+x AND y = 1 : ~x -> x, ~y -> y  （两个数必须全为1）
+x AND y = 0 : x -> ~y, y -> ~x  （两个数至少有一个为0）
+x OR y = 1 : ~x -> y, ~y -> x  （两个数至少有一个为1）
+x OR y = 0 : x -> ~x, y -> ~y  （两个数全为0）
+x XOR y = 1 : x -> ~y, y -> ~x, ~y -> x, ~x -> y  （两个数不同）
+x XOR y = 0 : x -> y, ~x -> ~y, y -> x, ~y -> ~x  （两个数相同）
+
+x,y不能都选是 : x -> ~y, y -> ~x
+x,y不能都选否 : ~x -> y, ~y -> x
+x选是且y选否不能同时发生 : x -> y, ~y -> ~x
+x选否且y选是不能同时发生 : ~x -> ~y, y -> x
+*/
+
 #define MAXN 10005
 #define MAXE 2000005
 
