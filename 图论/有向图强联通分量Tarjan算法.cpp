@@ -24,7 +24,7 @@ public:
     int belong[MAXN];
     int dfn[MAXN];
     int low[MAXN];
-    //bool instack[MAXN];
+    //bool instack[MAXN<<1];
     int ind[MAXN];  //入度
     int outd[MAXN]; //出度
 

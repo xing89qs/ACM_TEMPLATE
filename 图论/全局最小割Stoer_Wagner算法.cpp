@@ -4,7 +4,7 @@
 #define INF 0x3f3f3f3f
 
 int g[MAXN][MAXN];
-int v[MAXN], dis[MAXN]; //v数组是马甲数组，dis数组用来表示该点与A集合中所有点之间的边的长度之和
+int v[MAXN],dis[MAXN]; //v数组是马甲数组，dis数组用来表示该点与A集合中所有点之间的边的长度之和
 bool vis[MAXN]; //用来标记是否该点加入了A集合
 
 int Stoer_Wagner(int n)
