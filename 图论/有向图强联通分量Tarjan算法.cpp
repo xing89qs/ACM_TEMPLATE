@@ -102,7 +102,7 @@ public:
     void solve()    //求有向图的强连通分量
     {
         buildGraph();
-        for(int i = 0; i<n; i++)
+        for(int i = 1; i<=n; i++)   //点的编号从1开始
         {
             if(!dfn[i])
                 tarjan(i);
