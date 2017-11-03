@@ -29,6 +29,7 @@ public:
     int outd[MAXN]; //出度
 
     stack <int> sta;
+    vector <int> nG[MAXN];  //缩点后得到的新图
 
     int n,m;
     int cnt;
@@ -75,7 +76,7 @@ public:
         }
     }
 
-    void find_scc()    //缩点
+    void get_scc()    //缩点
     {
         memset(ind,0,sizeof(ind));
         memset(outd,0,sizeof(outd));
@@ -88,9 +89,38 @@ public:
                 {
                     ind[belong[v]]++;
                     outd[belong[i]]++;
+                    nG[belong[i]].push_back(belong[v]);
                 }
             }
         }
+    }
+
+    /*判断缩点后得到的DAG是否为单链（DAG图是否弱连通）*/
+    bool topoSort() //拓扑排序
+    {
+        queue <int> q;
+        for(int i = 1; i<=scc_cnt; i++)
+        {
+            if(!ind[i])
+                q.push(i);
+        }
+        if(q.size()>1)  //入度为0的点超过1个
+            return false;
+        while(!q.empty())
+        {
+            int u = q.front();
+            q.pop();
+            for(int i = 0; i<nG[u].size(); i++)
+            {
+                int v = nG[u][i];
+                ind[v]--;
+                if(!ind[v])
+                    q.push(v);
+            }
+            if(q.size()>1)
+                return false;
+        }
+        return true;
     }
 
     void buildGraph()
