@@ -3,7 +3,7 @@
 #define MAXN 1005
 #define MAXE 2000005
 
-class BCC
+class Edge_BCC
 {
 public:
     int head[MAXN];
@@ -91,4 +91,4 @@ public:
             }
         }
     }
-} bcc;
+} edge_bcc;
