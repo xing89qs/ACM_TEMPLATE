@@ -86,7 +86,7 @@ public:
         return true;
     }
 
-    //CostType maxFlow(){
+    //CostType maxFlow()
     int maxFlow()
     {
         int flow = 0;
