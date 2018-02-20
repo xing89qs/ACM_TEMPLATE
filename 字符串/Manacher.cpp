@@ -1,6 +1,6 @@
 //Manacher算法
 
-int newstr[MAXN<<1];   //转换后的新字符串
+char newstr[MAXN<<1];   //转换后的新字符串
 int rad[MAXN<<1];  //rad[i]表示i的回文半径
 
 int manacher(char *str)
@@ -9,12 +9,13 @@ int manacher(char *str)
     int Max = 0;
     newstr[0] = '$';    //字符串开头增加一个特殊字符，防止越界
     int len;
-    //int len=strlen(str);
+    //int len = strlen(str);
     //for(int k=0; k<len; k++)
     for(len=0,j=1; str[len]!='\0'; len++)
     {
         newstr[j++] = '#';
         newstr[j++] = str[len];
+        //newstr[j++] = str[k];
     }
     newstr[j] = '#';
     newstr[j+1] = '\0';
@@ -24,7 +25,7 @@ int manacher(char *str)
     for(int i=1; i<=j; i++)
     {
         if(mx > i)
-            rad[i] = min(rad[2*id-i], mx-i);    //在rad[j]和mx-i中取值小的
+            rad[i] = min(rad[2*id-i],mx-i);    //在rad[j]和mx-i中取值小的
         else
             rad[i] = 1; //若i>=mx，则要重新计算rad[i]
         while(newstr[i+rad[i]] == newstr[i-rad[i]]) //不需边界判断，因为左有'$',右有'\0'
@@ -36,5 +37,5 @@ int manacher(char *str)
             id = i;
         }
     }
-    return Max-1;   //返回rad[i]中的最大值-1即为原串的最长回文子串的长度
+    return Max - 1;   //返回rad[i]中的最大值-1即为原串的最长回文子串的长度
 }
