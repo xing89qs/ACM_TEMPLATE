@@ -22,6 +22,7 @@ int manacher(char *str)
     if(len == 0)
         return -1;
     int mx = 0,id = 0;  //mx为以newstr[id]为中心的最长回文串的右边界，即mx=id+rad[id]
+    //int axis = -1;
     for(int i=1; i<=j; i++)
     {
         if(mx > i)
@@ -31,6 +32,12 @@ int manacher(char *str)
         while(newstr[i+rad[i]] == newstr[i-rad[i]]) //不需边界判断，因为左有'$',右有'\0'
             rad[i]++;
         Max = max(Max,rad[i]);
+        /*if(Max < rad[i])
+        {
+            Max = rad[i];
+            axis = i;   //记录最大回文串对称中心（对称轴）
+        }
+        */
         if(rad[i] + i > mx) //若新得到的回文串右端点位置大于mx，则要更新id和mx的值
         {
             mx = rad[i] + i;
