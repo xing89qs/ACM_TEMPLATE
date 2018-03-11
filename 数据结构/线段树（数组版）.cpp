@@ -119,13 +119,12 @@ public:
     {
         if(L <= l && r <= R)
             return Max/Min[rt];
-        pushDown(rt,r-l+1); //向下更新枝叶的值
         int mid = (l + r) >> 1;
         Type ret = -1/INF/LINF;
         if(L <= mid)
-            ret = max/min(ret, queryMax(L, R, lson));
+            ret = max/min(ret, queryMax/Min(L, R, lson));
         if(R > mid)
-            ret = max/min(ret, queryMax(L, R, rson));
+            ret = max/min(ret, queryMax/Min(L, R, rson));
         return ret;
     }
 
@@ -133,7 +132,7 @@ public:
     {
         if(L <= l && r <= R)
             return Sum[rt];
-        pushDown(rt,r-l+1);
+        pushDown(rt,r-l+1); //向下更新枝叶的值
         int mid = (l + r) >> 1;
         Type ret = 0;
         if(L <= mid)
