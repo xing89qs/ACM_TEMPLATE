@@ -1,5 +1,4 @@
-
-#define MAXN 100005
+//线段树（数组版）
 
 typedef LL Type;
 
@@ -144,93 +143,55 @@ public:
 } segtree;
 
 
-/*离散化 + 线段树*/
+//线段树 + 离散化
 typedef int Type;
 
-Type a[MAXN];
-Type col[MAXN<<3];  //???这里写成MAXN<<2会WA???
-bool vis[MAXN];  //某种颜色是否都被使用
+Type sum[MAXN];
+Type lazy[MAXN<<3];
 int Hash[MAXN<<1];
-int ans;
 
 struct DiscreteNode
 {
     int x,y;
 } data[MAXN];
 
-void pushDown(int rt)
+void pushDown(int l,int r,int rt)   //离散化后区间标记下传
 {
-    if(~col[rt])
-    {
-        col[rt<<1] = col[rt<<1|1] = col[rt];
-        col[rt] = -1;
-    }
-}
-
-void update(Type val,int L,int R,int l,int r,int rt)
-{
-    if(L <= l && r <= R)
-    {
-        col[rt] = val;
-        return ;
-    }
-    pushDown(rt);
     int mid = (l + r) >> 1;
-    if(L <= mid)
-        update(val,L,R,lson);
-    if(R > mid)
-        update(val,L,R,rson);
-}
-
-void query(int l,int r,int rt)
-{
-    if(~col[rt])    //该结点已被上色
+    if(~lazy[rt])
     {
-        if(!vis[col[rt]])   //该颜色还没有被统计过
-        {
-            ans++;
-            vis[col[rt]] = true;
-        }
-        return ;    //返回，因为无论其子结点有没有颜色都只能说明下面的海报都被这一层的海报覆盖了
+        sum[rt<<1] = lazy[rt] * (Hash[mid+1] - Hash[l]);
+        sum[rt<<1|1] = lazy[rt] * (Hash[r+1] - Hash[mid+1]);
+        lazy[rt<<1] = lazy[rt<<1|1] = lazy[rt];
+        lazy[rt] = -1;
     }
-    if(l == r)
-        return ;
-    int mid = (l + r) >> 1;
-    query(lson);
-    query(rson);
 }
 
 int main()
 {
-    int t;
-    scanf("%d",&t);
-    while(t--)
+    int n,q;
+    scanf("%d%d",&n,&q);
+    memset(lazy,-1,sizeof(lazy));
+    /*sort+unique离散化*/
+    int cnt=0;
+    for(int i=1; i<=q; i++)
     {
-        int n;
-        scanf("%d",&n);
-        memset(col,-1,sizeof(col));
-        memset(vis,false,sizeof(vis));
-        int cnt=0;
-        for(int i=1; i<=n; i++)
-        {
-            scanf("%d%d",&data[i].x,&data[i].y);
-            Hash[++cnt]=data[i].x;
-            Hash[++cnt]=++data[i].y;
-        }
-        Hash[++cnt]=1;
-        Hash[++cnt]=10000001;
-        sort(Hash+1,Hash+1+cnt);
-        cnt=unique(Hash+1,Hash+1+cnt)-Hash-1;
-        cnt--;
-        for(int i=1; i<=n; i++)
-        {
-            int x=lower_bound(Hash+1,Hash+1+cnt,data[i].x)-Hash;
-            int y=lower_bound(Hash+1,Hash+1+cnt,data[i].y)-Hash-1;
-            update(i,x,y,1,cnt,1);
-        }
-        ans=0;
-        query(1,cnt,1);
-        printf("%d\n",ans);
+        scanf("%d%d",&data[i].x,&data[i].y);
+        Hash[++cnt]=data[i].x;
+        Hash[++cnt]=++data[i].y;    //直接将右端点+1
     }
+    Hash[++cnt]=1;
+    Hash[++cnt]=10000001;
+    sort(Hash+1,Hash+1+cnt);
+    cnt=unique(Hash+1,Hash+1+cnt)-Hash-1;
+    cnt--;
+    for(int i=1; i<=q; i++)
+    {
+        int x=lower_bound(Hash+1,Hash+1+cnt,data[i].x)-Hash;
+        int y=lower_bound(Hash+1,Hash+1+cnt,data[i].y)-Hash-1;
+    }
+    /*
+        这里为建树操作等，根据题目要求灵活应对。
+    */
     return 0;
 }

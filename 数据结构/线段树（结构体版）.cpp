@@ -143,13 +143,12 @@ struct Node
 
 struct DiscreteNode
 {
-    int x,y,op;
+    int x,y;
 } data[MAXN<<1];    //离散化用
 
 int Hash[MAXN<<1];  //对应离散化前点的序号
-int pref[MAXN<<1];  //前缀和数组
 
-void pushDown(int rt)
+void pushDown(int rt)   //离散化后区间标记下传
 {
     int l = tree[rt].l, r = tree[rt].r;
     int mid = (l + r) >> 1;
@@ -162,44 +161,6 @@ void pushDown(int rt)
     }
 }
 
-void pushUp(int rt)
-{
-    tree[rt].sum = tree[rt<<1].sum + tree[rt<<1|1].sum;
-}
-
-void build(int l,int r,int rt)
-{
-    tree[rt].l = l, tree[rt].r = r;
-    tree[rt].lazy = -1;
-    if(l == r)
-    {
-        tree[rt].sum = pref[l];
-        return ;
-    }
-    int mid = (l + r) >> 1;
-    build(lson);
-    build(rson);
-    pushUp(rt);
-}
-
-void updateInterval(Type val,int ll,int rr,int rt)
-{
-    int l = tree[rt].l, r = tree[rt].r;
-    if(ll <= tree[rt].l && tree[rt].r <= rr)
-    {
-        tree[rt].sum = val * (Hash[r+1] - Hash[l]);
-        tree[rt].lazy = val;
-        return ;
-    }
-    pushDown(rt);
-    int mid = (l + r) >> 1;
-    if(ll <= mid)
-        updateInterval(val,ll,rr,rt<<1);
-    if(rr > mid)
-        updateInterval(val,ll,rr,rt<<1|1);
-    pushUp(rt);
-}
-
 int main()
 {
     int n,q;
@@ -208,27 +169,75 @@ int main()
     int cnt=0;
     for(int i=1; i<=q; i++)
     {
-        scanf("%d%d%d",&data[i].x,&data[i].y,&data[i].op);
+        scanf("%d%d",&data[i].x,&data[i].y);
         Hash[++cnt]=data[i].x;
-        Hash[++cnt]=++data[i].y;
+        Hash[++cnt]=++data[i].y;    //直接将右端点+1
     }
     Hash[++cnt]=1;
     Hash[++cnt]=n+1;
     sort(Hash+1,Hash+1+cnt);
     cnt=unique(Hash+1,Hash+1+cnt)-Hash-1;
     cnt--;
-    for(int i=1; i<=cnt; i++)
-        pref[i] = Hash[i+1] - Hash[i];
     for(int i=1; i<=q; i++)
     {
         data[i].x=lower_bound(Hash+1,Hash+1+cnt,data[i].x)-Hash;
         data[i].y=lower_bound(Hash+1,Hash+1+cnt,data[i].y)-Hash-1;
     }
-    build(1,cnt,1);
-    for(int i=1; i<=q; i++)
-    {
-        updateInterval(data[i].op-1,data[i].x,data[i].y,1);
-        printf("%d\n",tree[1].sum);
-    }
+    /*
+        这里为建树操作等，根据题目要求灵活应对。
+    */
     return 0;
+}
+
+
+//线段树区间合并（求区间连续1）
+typedef int Type;
+
+struct Node
+{
+    int l,r;
+    int cover;
+    int ls,rs,ms;   //ls表示从左端开始的最大连续区间，rs表示从右端开始的最大连续区间，ms表示该区间内的最大连续区间
+} tree[MAXN<<2];
+
+void pushUp(int rt)
+{
+    tree[rt].ls = tree[rt<<1].ls;
+    tree[rt].rs = tree[rt<<1|1].rs;
+    tree[rt].ms = max(max(tree[rt<<1].ms,tree[rt<<1|1].ms),tree[rt<<1].rs+tree[rt<<1|1].ls);
+    if(tree[rt<<1].ls == tree[rt<<1].r - tree[rt<<1].l + 1)
+        tree[rt].ls += tree[rt<<1|1].ls;
+    if(tree[rt<<1|1].rs == tree[rt<<1|1].r - tree[rt<<1|1].l + 1)
+        tree[rt].rs += tree[rt<<1].rs;
+}
+
+void pushDown(int rt)
+{
+    if(~tree[rt].cover)
+    {
+        tree[rt<<1].cover = tree[rt<<1|1].cover = tree[rt].cover;
+        if(tree[rt].cover)
+        {
+            tree[rt<<1].ls = tree[rt<<1].rs = tree[rt<<1].ms = 0;
+            tree[rt<<1|1].ls = tree[rt<<1|1].rs = tree[rt<<1|1].ms = 0;
+        }
+        else
+        {
+            tree[rt<<1].ls = tree[rt<<1].rs = tree[rt<<1].ms = tree[rt<<1].r - tree[rt<<1].l + 1;
+            tree[rt<<1|1].ls = tree[rt<<1|1].rs = tree[rt<<1|1].ms = tree[rt<<1|1].r - tree[rt<<1|1].l + 1;
+        }
+        tree[rt].cover = -1;
+    }
+}
+
+void build(int l,int r,int rt)
+{
+    tree[rt].l = l, tree[rt].r = r;
+    tree[rt].cover = -1;
+    tree[rt].ls = tree[rt].rs = tree[rt].ms = r - l + 1;
+    if(l == r)
+        return ;
+    int mid = (l + r) >> 1;
+    build(lson);
+    build(rson);
 }
