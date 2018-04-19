@@ -176,14 +176,11 @@ struct Line
     Vector v;   //方向向量，v = b - a
     //double ang;//极角
     Line() {}
-    Line(Point a,Point b,Vector v):a(a),b(b),v(v) {/*ang = atan2(v.y, v.x);*/ /*v = b - a;*/}
-    Point point(double t)
-    {
-        return p + v * t;
-    }
+    Line(Point a,Point b):a(a),b(b) {v = b - a; /*ang = atan2(v.y, v.x);*/}
+    /*
     Line move(double d)
     {
-        return Line(p + normal(v)*d, v);
+        return Line(a + Normal(v)*d, v);
     }
     bool operator < (const Line& rhs) const
     {
@@ -213,6 +210,7 @@ struct Line
             return v.y < 0;
         return true;
     }
+    */
 };
 
 typedef Line Segment;
