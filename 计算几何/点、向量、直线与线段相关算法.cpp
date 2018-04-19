@@ -177,7 +177,6 @@ struct Line
     //double ang;//极角
     Line() {}
     Line(Point a,Point b):a(a),b(b) {v = b - a; /*ang = atan2(v.y, v.x);*/}
-    /*
     Line move(double d)
     {
         return Line(a + Normal(v)*d, v);
@@ -210,7 +209,6 @@ struct Line
             return v.y < 0;
         return true;
     }
-    */
 };
 
 typedef Line Segment;
@@ -288,10 +286,10 @@ bool OnSegment(Point &p,Segment& S)
 
 /*
 #9.线段相交判定 
-//如果要判断端点，用OnSegment
 需要条件：1,2,3
 */
 //线段规范相交
+//两条线段恰有一个不是端点的公共点。（即如果一条线段的一个端点恰在另一条线段上则不视为相交；如果两条线段部分重合，也不视为相交。）
 bool SegmentProperIntersect(Segment &s1,Segment& s2)
 {
     Type c1 = (s1.b - s1.a) ^ (s2.a - s1.a), c2 = (s1.b - s1.a) ^ (s2.b - s1.a),
@@ -300,6 +298,7 @@ bool SegmentProperIntersect(Segment &s1,Segment& s2)
 }
 
 //线段不规范相交（使用的时候结合线段规范相交的函数一起判断）
+//两条线段存在公共部分。（上述两种情况都可视为非规范相交）
 bool SegmentNotProperIntersect(Segment& s1,Segment& s2)
 {
     return OnSegment(s1.a,s2) || OnSegment(s1.b,s2) || OnSegment(s2.a,s1) || OnSegment(s2.b,s1);
