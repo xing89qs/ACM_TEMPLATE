@@ -12,7 +12,8 @@
 #8.判断点是否在线段上
 #9.线段相交判定
 #10.两点式转一般式 Ax + By + C = 0
-#11.点的极角排序
+#11.判断直线和线段相交
+#12.点的极角排序
 */
 
 /*
@@ -176,7 +177,10 @@ struct Line
     Vector v;   //方向向量，v = b - a
     //double ang;//极角
     Line() {}
-    Line(Point a,Point b):a(a),b(b) {v = b - a; /*ang = atan2(v.y, v.x);*/}
+    Line(Point a,Point b):a(a),b(b)
+    {
+        v = b - a; /*ang = atan2(v.y, v.x);*/
+    }
     Line move(double d)
     {
         return Line(a + Normal(v)*d, v);
@@ -316,8 +320,24 @@ void toNormalLine(Line &L,Type &A,Type& B,Type &C)
     C = -B * L.a.y - A * L.a.x;
 }
 
+
 /*
-#11.点的极角排序
+#11.判断直线和线段相交
+需要条件： 1,2,3
+*/
+bool LineIntersectSegment(Line &L,Segment &S)
+{
+    Vector a(S.a-L.a);
+    Vector b(S.b-L.a);
+    Vector c(L.b-L.a);
+    int dcmpA = dcmp(c ^ a);
+    int dcmpB = dcmp(c ^ b);
+    return dcmpA * dcmpB <= 0;
+}
+
+
+/*
+#12.点的极角排序
 需要条件：1,2
 */
 //利用叉积的正负排序
