@@ -285,7 +285,7 @@ Point LineProjection(Point p,Line L)
 bool OnSegment(Point &p,Segment& S)
 {
     //小于0不包含端点，小于等于包含端点
-    return dcmp((S.a-p)^(S.b-p)) == 0 && dcmp((S.a-p)^(S.b - p)) <= 0;
+    return dcmp((S.a-p)^(S.b-p)) == 0 && dcmp((S.a-p)*(S.b-p)) <= 0;
 }
 
 /*
