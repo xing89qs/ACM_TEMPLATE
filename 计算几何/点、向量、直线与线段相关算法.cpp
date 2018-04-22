@@ -234,7 +234,7 @@ Point LineIntersection(Line &L1,Line& L2)
             return Point(-INF,-INF);//在一条线上
     }
     Type t = (v2 ^ u) / (v1 ^ v2);
-    return L1.a + v1*t;
+    return L1.a + v1 * t;
 }
 
 
