@@ -187,7 +187,7 @@ struct Line
     }
     bool operator < (const Line& rhs) const
     {
-        //根据原点极角排序(小的在前；极角相同，长度小的在前)
+        //根据原点极角排序（小的在前；极角相同，长度小的在前）
         //return ang < L.ang;
         if (v.y * rhs.v.y > 0)  //同上同下
         {
@@ -340,6 +340,20 @@ bool LineIntersectSegment(Line &L,Segment &S)
 #12.点的极角排序
 需要条件：1,2
 */
+//常用版（利用叉积进行极角排序，极角相同的，距离原点近的小）
+int pos;
+Point p[100];
+bool AngleCmp(Point a,Point b)
+{
+    Type temp = (a - p[pos]) ^ (b - p[pos]);
+    if(dcmp(temp) == 0)
+        return Length(p[pos],a) < Length(p[pos],b);
+    else if(dcmp(temp) < 0)
+        return false;
+    else
+        return true;
+}
+
 //利用叉积的正负排序
 bool AngleCmp(const point &a,const point &b)    //逆时针排序
 {
@@ -363,27 +377,15 @@ bool AngleCmp(const Point& a,const Point& b)
 //利用象限加上极角，叉积排序
 bool AngleCmp(const Point &a,const Point &b)    //先按象限排序，再按极角排序，再按远近排序
 {
-    if(a.y * b.y > 0)   //同上同下
-    {
-        if((a ^ b) != 0)
-            return (a ^ b) > 0;
-        return Length(a) > Length(b);   //极角相同，距离原点远的小
-    }
-    if(a.y * b.y < 0)
-        return a.y < 0; //一上一下
-    if(a.y == 0)
-    {
-        if(b.y == 0)
-        {
-            if(a.x * b.x < 0)
-                return a.x > b.x;
-            return Length(a) > Length(b);   //极角相同
-        }
-        if(a.x > 0)
-            return b.y > 0;
+    if (a.y == 0 && b.y == 0 && a.x * b.x <= 0)
+        return a.x > b.x;
+    if (a.y == 0 && a.x >= 0 && b.y != 0)
+        return true;
+    if (b.y == 0 && b.x >= 0 && a.y != 0)
         return false;
-    }
-    if(b.x > 0)
-        return a.y < 0;
-    return true;
+    if (b.y*a.y <= 0)
+        return a.y>b.y;
+    point O;
+    O.y = O.x = 0;
+    return (a - O) ^ (b - O) > 0 || ((a - O) ^ (b - O) == 0 && a.x < b.x);
 }
