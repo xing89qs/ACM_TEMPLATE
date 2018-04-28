@@ -1,25 +1,25 @@
-//计算几何模板
+//计算几何模板——点、向量、直线与线段相关算法
 
-/*
+/**
 目录:
-#1.点的定义
-#2.向量的基本运算
-#3.直线、线段定义
-#4.两直线交点
-#5.点到直线的距离
-#6.点到线段的距离
-#7.点在直线上的投影
-#8.判断点是否在线段上
-#9.线段相交判定
-#10.两点式转一般式 Ax + By + C = 0
-#11.判断直线和线段相交
-#12.点的极角排序
-*/
+#A1.点的定义
+#A2.向量的基本运算
+#A3.直线、线段定义
+#A4.两直线交点
+#A5.点到直线的距离
+#A6.点到线段的距离
+#A7.点在直线上的投影
+#A8.判断点是否在线段上
+#A9.线段相交判定
+#A10.两点式转一般式 Ax + By + C = 0
+#A11.判断直线和线段相交
+#A12.点的极角排序
+**/
 
-/*
-#1.点的定义
+/**
+#A1.点的定义
 需要条件：无
-*/
+**/
 
 #define Vector Point
 
@@ -100,10 +100,10 @@ struct Point
 };
 
 
-/*
-#2.向量的基本运算
-需要条件：1
-*/
+/**
+#A2.向量的基本运算
+需要条件：A1
+**/
 //距离
 Type Length(Point p1,Point p2)
 {
@@ -167,10 +167,10 @@ double Angle(Vector v)
 }
 
 
-/*
-#3.直线、线段定义（它的左边是对应的半平面）
-需要条件：1
-*/
+/**
+#A3.直线、线段定义（它的左边是对应的半平面）
+需要条件：A1
+**/
 struct Line
 {
     Point a,b;  //直线（线段）的两个端点（线段的时候可把a当作起点）
@@ -218,10 +218,10 @@ struct Line
 typedef Line Segment;
 
 
-/*
-#4.两直线交点
-需要条件：1,2,3
-*/
+/**
+#A4.两直线交点
+需要条件：A1,A2,A3
+**/
 Point LineIntersection(Line &L1,Line& L2)
 {
     Vector u = L1.a - L2.a;
@@ -238,10 +238,10 @@ Point LineIntersection(Line &L1,Line& L2)
 }
 
 
-/*
-#5.点到直线的距离
-需要条件：1,2,3
-*/
+/**
+#A5.点到直线的距离
+需要条件：A1,A2,A3
+**/
 Type DistanceToLine(Point p,Line L)
 {
     Vector v1 = L.b - L.a, v2 = p - L.a;
@@ -249,10 +249,10 @@ Type DistanceToLine(Point p,Line L)
 }
 
 
-/*
-#6.点到线段的距离
-需要条件：1,2,3
-*/
+/**
+#A6.点到线段的距离
+需要条件：A1,A2,A3
+**/
 Type DistanceToSegment(Point p,Segment seg)
 {
     if(seg.a == seg.b)
@@ -267,10 +267,10 @@ Type DistanceToSegment(Point p,Segment seg)
 }
 
 
-/*
-#7.点在直线上的投影
-需要条件：1,2,3
-*/
+/**
+#A7.点在直线上的投影
+需要条件：A1,A2,A3
+**/
 Point LineProjection(Point p,Line L)
 {
     Vector v = L.b - L.a;
@@ -278,21 +278,21 @@ Point LineProjection(Point p,Line L)
 }
 
 
-/*
-#8.判断点是否在线段上
-需要条件：1,2,3
-*/
+/**
+#A8.判断点是否在线段上
+需要条件：A1,A2,A3
+**/
 bool OnSegment(Point &p,Segment& S)
 {
     //小于0不包含端点，小于等于包含端点
     return dcmp((S.a-p)^(S.b-p)) == 0 && dcmp((S.a-p)*(S.b-p)) <= 0;
 }
 
-/*
-#9.线段相交判定 
-需要条件：1,2,3
-*/
-//线段规范相交
+/**
+#A9.线段相交判定 
+需要条件：A1,A2,A3
+**/
+/*线段规范相交*/
 //两条线段恰有一个不是端点的公共点。（即如果一条线段的一个端点恰在另一条线段上则不视为相交；如果两条线段部分重合，也不视为相交。）
 bool SegmentProperIntersect(Segment &s1,Segment& s2)
 {
@@ -301,7 +301,7 @@ bool SegmentProperIntersect(Segment &s1,Segment& s2)
     return dcmp(c1) * dcmp(c2) < 0 && dcmp(c3) * dcmp(c4) < 0;
 }
 
-//线段不规范相交（使用的时候结合线段规范相交的函数一起判断）
+/*线段不规范相交（使用的时候结合线段规范相交的函数一起判断）*/
 //两条线段存在公共部分。（上述两种情况都可视为非规范相交）
 bool SegmentNotProperIntersect(Segment& s1,Segment& s2)
 {
@@ -309,10 +309,10 @@ bool SegmentNotProperIntersect(Segment& s1,Segment& s2)
 }
 
 
-/*
-#10.两点式转一般式 Ax + By + C = 0
-需要条件：1,2,3
-*/
+/**
+#A10.两点式转一般式 Ax + By + C = 0
+需要条件：A1,A2,A3
+**/
 void toNormalLine(Line &L,Type &A,Type& B,Type &C)
 {
     A = L.a.y - L.b.y;
@@ -321,10 +321,10 @@ void toNormalLine(Line &L,Type &A,Type& B,Type &C)
 }
 
 
-/*
-#11.判断直线和线段相交
-需要条件： 1,2,3
-*/
+/**
+#A11.判断直线和线段相交
+需要条件：A1,A2,A3
+**/
 bool LineIntersectSegment(Line &L,Segment &S)
 {
     Vector a(S.a-L.a);
@@ -336,11 +336,12 @@ bool LineIntersectSegment(Line &L,Segment &S)
 }
 
 
-/*
-#12.点的极角排序
-需要条件：1,2
-*/
-//常用版（利用叉积进行极角排序，极角相同的，距离原点近的小）
+/**
+#A12.点的极角排序
+需要条件：A1,A2
+**/
+/*A12.1常用版*/
+//利用叉积进行极角排序，极角相同的，距离原点近的小）
 int pos;
 Point p[100];
 bool AngleCmp(Point a,Point b)
@@ -354,6 +355,7 @@ bool AngleCmp(Point a,Point b)
         return true;
 }
 
+/*A12.2*/
 //利用叉积的正负排序
 bool AngleCmp(const point &a,const point &b)    //逆时针排序
 {
@@ -362,18 +364,21 @@ bool AngleCmp(const point &a,const point &b)    //逆时针排序
     return (b - O) ^ (a - O) < 0;
 }
 
+/*A12.3*/
 //利用complex的内建函数排序（需要<complex>头文件）
 bool AngleCmp(const Point& a,const Point& b)
 {
     return arg(a) < arg(b);
 }
 
+/*A12.4*/
 //利用arctan计算极角大小排序（范围[-180，180]）
 bool AngleCmp(const Point& a,const Point& b)
 {
     return atan2(a.y, a.x) < atan2(b.y, b.x);
 }
 
+/*A12.5*/
 //利用象限加上极角，叉积排序
 bool AngleCmp(const Point &a,const Point &b)    //先按象限排序，再按极角排序，再按远近排序
 {
