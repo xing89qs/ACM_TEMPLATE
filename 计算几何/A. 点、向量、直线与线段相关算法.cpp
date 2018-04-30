@@ -341,7 +341,7 @@ bool LineIntersectSegment(Line &L,Segment &S)
 需要条件：A1,A2
 **/
 /*A12.1常用版*/
-//利用叉积进行极角排序，极角相同的，距离原点近的小）
+//利用叉积进行极角排序，极角相同的，距离原点近的小
 int pos;
 Point p[100];
 bool AngleCmp(Point a,Point b)
@@ -356,41 +356,25 @@ bool AngleCmp(Point a,Point b)
 }
 
 /*A12.2*/
-//利用叉积的正负排序
-bool AngleCmp(const point &a,const point &b)    //逆时针排序
-{
-    point O;
-    O.x = O.y = 0;
-    return (b - O) ^ (a - O) < 0;
-}
-
-/*A12.3*/
-//利用complex的内建函数排序（需要<complex>头文件）
-bool AngleCmp(const Point& a,const Point& b)
-{
-    return arg(a) < arg(b);
-}
-
-/*A12.4*/
 //利用arctan计算极角大小排序（范围[-180，180]）
 bool AngleCmp(const Point& a,const Point& b)
 {
     return atan2(a.y, a.x) < atan2(b.y, b.x);
 }
 
-/*A12.5*/
+/*A12.3*/
 //利用象限加上极角，叉积排序
 bool AngleCmp(const Point &a,const Point &b)    //先按象限排序，再按极角排序，再按远近排序
 {
-    if (a.y == 0 && b.y == 0 && a.x * b.x <= 0)
+    if(a.y == 0 && b.y == 0 && a.x * b.x <= 0)
         return a.x > b.x;
-    if (a.y == 0 && a.x >= 0 && b.y != 0)
+    if(a.y == 0 && a.x >= 0 && b.y != 0)
         return true;
-    if (b.y == 0 && b.x >= 0 && a.y != 0)
+    if(b.y == 0 && b.x >= 0 && a.y != 0)
         return false;
-    if (b.y*a.y <= 0)
+    if(b.y*a.y <= 0)
         return a.y>b.y;
-    point O;
+    Point O;
     O.y = O.x = 0;
     return (a - O) ^ (b - O) > 0 || ((a - O) ^ (b - O) == 0 && a.x < b.x);
 }
