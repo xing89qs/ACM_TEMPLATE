@@ -11,6 +11,8 @@
 #C7.删除平面的三点共线
 #C8.有向直线切割多边形
 #C9.求点集凸包
+#C10.判断是否是凸包（向量法判断）
+#C11.判断圆是否在多边形内
 **/
 
 
@@ -173,7 +175,7 @@ Polygon DeleteCollinearPoints(Polygon &poly)
 
 /**
 #C8.有向直线切割多边形
-需要条件：A1 3 7 C1
+需要条件：A1 A3 7 C1
 **/
 //用有向直线A->B切割多边形poly，返回“左侧”。 如果退化，可能会返回一个单点或者线段
 Polygon CutPolygon(Polygon& poly,Point A,Point B)
@@ -234,7 +236,7 @@ int ConvexHull(vector<Point> &p,vector<Point> &ch)
 int ConvexHull(Point *p,int n,Point *ch)
 {
     sort(p,p+n);
-    int n = unique(p,p+n) - p;    //删除重复点
+    n = unique(p,p+n) - p;    //删除重复点
     int m = 0;
     for(int i=0; i<n; i++)
     {
@@ -252,4 +254,39 @@ int ConvexHull(Point *p,int n,Point *ch)
     if(n > 1)
         m--;
     return m;
+}
+
+
+/**
+#C10.判断是否是凸包（向量法判断）
+需要条件：A1
+**/
+bool isConvexHull(Point *p,int n)
+{
+    int flag = 0;   //记录顺时针还是逆时针
+    for(int i=0; i<n; i++)
+    {
+        int temp = dcmp((p[(i+1)%n] - p[i%n]) ^ (p[(i+2)%n] - p[(i+1)%n]));
+        if(!flag)
+            flag = temp;
+        if(flag * temp < 0)
+            return false;
+    }
+    return true;
+}
+
+
+/**
+#C11.判断圆是否在多边形内
+需要条件：A1,A5,B1,C1
+**/
+//如果圆边界上的点可以与凸包的边重合，则把<改为<=
+bool isCircleInPolygon(Circle C,int n,Polygon &poly)
+{
+    for(int i=0; i<n; i++)
+    {
+        if(dcmp(DistanceToLine(C.c,Line(poly[i%n],poly[(i+1)%n]))-C.r)<0)
+            return false;
+    }
+    return true;
 }

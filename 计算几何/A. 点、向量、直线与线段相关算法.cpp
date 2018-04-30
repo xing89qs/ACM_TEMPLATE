@@ -95,7 +95,7 @@ struct Point
 
     void print() const
     {
-        printf("(%lf, %lf)",x,y);
+        printf("(%f, %f)",x,y);
     }
 };
 
