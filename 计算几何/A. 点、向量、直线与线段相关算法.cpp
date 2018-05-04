@@ -16,11 +16,11 @@
 #A12.点的极角排序
 **/
 
+
 /**
 #A1.点的定义
 需要条件：无
 **/
-
 #define Vector Point
 
 typedef double Type;
@@ -181,7 +181,7 @@ struct Line
     {
         v = b - a; /*ang = atan2(v.y, v.x);*/
     }
-    Line move(double d)
+    Line translation(double d)
     {
         return Line(a + Normal(v)*d, v);
     }
