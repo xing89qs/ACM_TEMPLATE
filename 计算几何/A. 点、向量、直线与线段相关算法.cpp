@@ -157,7 +157,14 @@ Vector Rotate(Vector v,double rad)
 Vector Normal(Vector v)
 {
     Type l = Length(v);
-    return Vector(-v.y / l, v.x / l);
+    return Vector(-v.y/l,v.x/l);
+}
+
+//单位向量
+Vector ToUnit(Vector v)
+{
+    Type l = Length(v);
+    return Vector(v.x/l,v.y/l);
 }
 
 //计算向量极角（需要<cmath>头文件）

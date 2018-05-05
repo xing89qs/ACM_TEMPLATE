@@ -99,7 +99,7 @@ pair<Type,Type> RotatingCalipers(Point *p,int n)
     int l = 1, r = 1, u = 1;
     for(int i=0; i<n; i++)
     {
-        Vector v = Normal(p[i+1] - p[i]);
+        Vector v = ToUnit(p[i+1] - p[i]);
         while(dcmp(v*(p[r%n]-p[i])-v*(p[(r+1)%n]-p[i])) < 0)    //右边
             r++;
         while(u < r || dcmp(v^(p[u%n]-p[i])-v^(p[(u+1)%n]-p[i])) < 0)   //上边
