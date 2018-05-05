@@ -19,7 +19,7 @@ Type RotatingCalipers(Point *p,int n)
     p[n] = p[0];
     for(int i=0; i<n; i++)
     {
-        while(dcmp(Cross(p[i+1],p[q+1],p[i])-dcmp(p[i+1],p[q],p[i])) > 0)
+        while(dcmp(Cross(p[i+1],p[q+1],p[i])-Cross(p[i+1],p[q],p[i])) > 0)
             q = (q + 1) % n;
         ans = max(ans,Length(p[i],p[q]));
         ans = max(ans,Length(p[i+1],p[q+1]));
