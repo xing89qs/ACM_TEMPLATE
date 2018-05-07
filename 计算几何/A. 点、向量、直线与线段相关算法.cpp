@@ -320,6 +320,7 @@ bool SegmentNotProperIntersect(Segment& s1,Segment& s2)
 #A10.两点式转一般式 Ax + By + C = 0
 需要条件：A1,A2,A3
 **/
+///模板待测！！！
 void toNormalLine(Line &L,Type &A,Type& B,Type &C)
 {
     A = L.a.y - L.b.y;

@@ -10,6 +10,7 @@
 #F1.平面直线图
 需要条件：A1,C1,C2
 **/
+///模板待测！！！
 /*调用方法:给出点和边，求面
  * init(n) n为点数
  * addPoint(const vector<Point>& V) 传入点集

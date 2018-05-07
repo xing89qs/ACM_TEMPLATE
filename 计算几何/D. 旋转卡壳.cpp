@@ -139,6 +139,7 @@ Type RotatingCalipers(Point *p,int n)
 #D5.旋转卡壳求包围点的最小面积（周长）的矩形
 需要条件：A1,A2,A5,C9
 **/
+///模板待测！！！
 //p是凸包，n是凸包点数
 pair<Type,Type> RotatingCalipers(Point *p,int n)
 {

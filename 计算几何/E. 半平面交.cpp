@@ -10,6 +10,7 @@
 #E1.半平面交
 需要条件：A1,A2,A3,A4,C1
 **/
+///模板待测！！！
 /*直线版模板*/
 //点p在有向直线L的左边（线上不算）
 bool onLeft(const Line& L, const Point& p)

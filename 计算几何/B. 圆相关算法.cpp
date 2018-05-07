@@ -51,6 +51,7 @@ bool isInCircle(Point p, Circle C)
 #B3.直线与圆的交点
 需要条件：A1,B1
 **/
+///模板待测！！！
 //t1,t2为两个记录变量的参数，使用该函数前定义即可
 int getLineCircleIntersection(Line L,Circle C,double& t1,double& t2,vector<Point>& sol)
 {
@@ -108,6 +109,7 @@ void getLineCircleIntersection(Line L,Circle C,vector<Point>& ret)
 #B4.线段与圆相交判定（相切不算）
 需要条件：A1,A2,B1,B3
 **/
+///模板待测！！！
 //线段不考虑端点
 bool CircleIntersectSegment(Segment s,Circle C)
 {
@@ -129,6 +131,7 @@ bool CircleIntersectSegment(Segment s,Circle C)
 #B5.线段和圆的交点
 需要条件：A1,A2,A3,B1,B3
 **/
+///模板待测！！！
 //结果保存在sol中
 int getSegmentCircleIntersection(Line L,Circle C,vector<Point>& sol)
 {
@@ -154,6 +157,7 @@ int getSegmentCircleIntersection(Line L,Circle C,vector<Point>& sol)
 #B6.两圆交点
 需要条件：A1,A2,B1
 **/
+///模板待测！！！
 int getTwoCirclesIntersection(Circle c1,Circle c2,vector<Point> &ret)
 {
     Type d = Length(c1.p,c2.p);
@@ -220,6 +224,7 @@ Type getInterArea(Circle a,Circle b)
 #B8.把角变成0~2PI范围内
 需要条件：无
 **/
+///模板待测！！！
 //负数也可以使用
 double NormalizeAngle(double rad)
 {
@@ -231,6 +236,7 @@ double NormalizeAngle(double rad)
 #B9.求圆过某一点的所有切线
 需要条件：A1,A2,B1
 **/
+///模板待测！！！
 //返回切线条数，也可以把int改成void不返回切线条数
 int TangentLineThroughPoint(Circle c,Point p,vector<Line> &v)
 {
@@ -259,6 +265,7 @@ int TangentLineThroughPoint(Circle c,Point p,vector<Line> &v)
 #B10.求两圆的公切线
 需要条件：A1,B1
 **/
+///模板待测！！！
 //返回切线条数，v为所有的切线，第一个点是A上的切点，第二个点是B上的切点
 int getTangents(Circle A,Circle B,vector<Line> &v)
 {
@@ -315,6 +322,7 @@ int getTangents(Circle A,Circle B,vector<Line> &v)
 #B11.三角形外接圆
 需要条件：A1,A2,B1
 **/
+///模板待测！！！
 Circle TriangleCircumscribedCircle(Point p1,Point p2,Point p3)
 {
     double Bx = p2.x - p1.x, By = p2.y - p1.y;
@@ -331,6 +339,7 @@ Circle TriangleCircumscribedCircle(Point p1,Point p2,Point p3)
 #B12.三角形内切圆
 需要条件：A1,A2,A5,B1
 **/
+///模板待测！！！
 Circle TriangleInscribedCircle(Point p1,Point p2,Point p3)
 {
     double a = Length(p2,p3);
@@ -345,6 +354,7 @@ Circle TriangleInscribedCircle(Point p1,Point p2,Point p3)
 #B13.过某一点与直线相切的圆（半径为r）
 需要条件：A1,A2,A5,B1,B3
 **/
+///模板待测！！！
 //返回所求圆的圆心
 vector<Point> CircleThroughPointTangentLine(Point p,Line L,double r)
 {
@@ -360,6 +370,7 @@ vector<Point> CircleThroughPointTangentLine(Point p,Line L,double r)
 #B14.与两条直线相切的圆（半径为r）
 需要条件：A1,A2,A3,A4
 **/
+///模板待测！！！
 //返回所求圆的圆心
 vector<Point> CircleTangent2Lines(Line a,Line b,double r)
 {
@@ -378,6 +389,7 @@ vector<Point> CircleTangent2Lines(Line a,Line b,double r)
 #B15.与两圆相切的圆（半径为r）
 需要条件：A1,A2,B1,B6
 **/
+///模板待测！！！
 //返回所求圆的圆心
 vector<Point> CircleTangent2Circles(Circle c1, Circle c2, double r)
 {
