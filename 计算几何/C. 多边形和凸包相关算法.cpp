@@ -209,7 +209,7 @@ Polygon CutPolygon(Polygon& poly,Point A,Point B)
 需要条件：A1
 **/
 /*C9.1: 求得的凸包存在 vector<Point> ch 内*/
-//如果不希望在凸包的边上有输入点，把两个 <= 改成 <
+//如果不希望在凸包的边上有输入点，把两个 <= 改成 < （说明：这里lrj可能写错了，应该是凸包边上无点：<= ；有点：<）
 //如果不介意点集被修改，可以改成传递引用（不能修改就去掉&）
 int ConvexHull(vector<Point> &p,vector<Point> &ch)
 {
@@ -219,14 +219,14 @@ int ConvexHull(vector<Point> &p,vector<Point> &ch)
     ch.resize(n+1);
     for(int i=0; i<n; i++)  //找到下凸包
     {
-        while(m > 1 && ((ch[m-1] - ch[m-2]) ^ (p[i] - ch[m-2])) <= 0)
+        while(m > 1 && dcmp((ch[m-1]-ch[m-2])^(p[i]-ch[m-2])) <= 0)
             m--;
         ch[m++] = p[i]; //发现右边的点时删除前面的点，再更新
     }
     int k = m;  //下凸包点数，找上凸包时防止误删
     for(int i=n-2; i>=0; i--)
     {
-        while(m > k && ((ch[m-1] - ch[m-2]) ^ (p[i] - ch[m-2])) <= 0)
+        while(m > k && dcmp((ch[m-1]-ch[m-2])^(p[i]-ch[m-2])) <= 0)
             m--;
         ch[m++] = p[i];
     }
@@ -237,7 +237,7 @@ int ConvexHull(vector<Point> &p,vector<Point> &ch)
 }
 
 /*C9.2: 求得的凸包存在 Point *ch 内*/
-//求凸包，如果不希望凸包边上有输入点，把<=改成<
+//求凸包，如果不希望凸包边上有输入点，把<=改成< （说明：这里lrj可能写错了，应该是凸包边上无点：<= ；有点：<）
 int ConvexHull(Point *p,int n,Point *ch)
 {
     sort(p,p+n);
