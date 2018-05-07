@@ -40,7 +40,7 @@ double PolygonArea(Polygon &poly)
 
 /**
 #C3.点在多边形内判定（有弧边也可以使用）
-需要条件：A1,7,C1
+需要条件：A1,A3,A8,C1
 **/
 int isPointInPolygon(Point p,Polygon &poly)
 {
@@ -69,6 +69,7 @@ int isPointInPolygon(Point p,Polygon &poly)
 #C4.多边形重心
 需要条件：A1,C1
 **/
+//调用之前应先求得凸包
 Point getPolygonCenterOfGravity(Polygon &poly)
 {
     int n = poly.size();
@@ -91,17 +92,18 @@ Point getPolygonCenterOfGravity(Polygon &poly)
 #C5.圆和凸多边形相交的面积（圆心必须在凸多边形内部，不含边）
 需要条件：A1,A2 10 12 14 28,C1
 **/
+///模板待测！！！
 double CirclePolygonIntersectionArea(Circle C, Polygon &poly)
 {
     poly.push_back(poly[0]);
     double ret = 0;
     for (int i=0; i<poly.size()-1; i++)
     {
-        bool flag1 = (dcmp(Length(C.c - poly[i]) - C.r) <= 0);
-        bool flag2 = (dcmp(Length(C.c - poly[i+1]) - C.r) <= 0);
+        bool flag1 = (dcmp(Length(C.p - poly[i]) - C.r) <= 0);
+        bool flag2 = (dcmp(Length(C.p - poly[i+1]) - C.r) <= 0);
         if(flag1 + flag2 == 2)   //两个点都在圆内 算三角形
         {
-            ret += fabs((poly[i] - C.c) ^ (poly[i+1] - C.c)) / 2.0;
+            ret += fabs((poly[i] - C.p) ^ (poly[i+1] - C.p)) / 2.0;
             continue;
         }
         vector <Point> sol;
@@ -110,19 +112,19 @@ double CirclePolygonIntersectionArea(Circle C, Polygon &poly)
         {
             if(flag1)
             {
-                ret += C.r * C.r * Angle(poly[i+1]-C.c,sol[0]-C.c) / 2.0 + fabs((poly[i]-C.c)^(sol[0]-C.c)) / 2.0;
+                ret += C.r * C.r * Angle(poly[i+1]-C.p,sol[0]-C.p) / 2.0 + fabs((poly[i]-C.p)^(sol[0]-C.p)) / 2.0;
                 continue;
             }
-            ret += C.r * C.r * Angle(poly[i]-C.c,sol[0]-C.c) / 2.0 + fabs((poly[i+1]-C.c)^(sol[0]-C.c)) / 2.0;
+            ret += C.r * C.r * Angle(poly[i]-C.p,sol[0]-C.p) / 2.0 + fabs((poly[i+1]-C.p)^(sol[0]-C.p)) / 2.0;
             continue;
         }
         //两个点都在圆外
         if (num == 2)
         {
-            ret += C.r * C.r * (Angle(poly[i]-C.c,sol[0]-C.c) + Angle(poly[i+1]-C.c,sol[1]-C.c)) / 2.0 + fabs((sol[0]-C.c)^(sol[1]-C.c)) / 2.0;
+            ret += C.r * C.r * (Angle(poly[i]-C.p,sol[0]-C.p) + Angle(poly[i+1]-C.p,sol[1]-C.p)) / 2.0 + fabs((sol[0]-C.p)^(sol[1]-C.p)) / 2.0;
             continue;
         }
-        ret += C.r * C.r * Angle(poly[i]-C.c,poly[i+1]-C.c) / 2.0;
+        ret += C.r * C.r * Angle(poly[i]-C.p,poly[i+1]-C.p) / 2.0;
     }
     P.pop_back();
     return ret;
@@ -133,6 +135,7 @@ double CirclePolygonIntersectionArea(Circle C, Polygon &poly)
 #C6.返回圆盘是否与多边形相交
 需要条件：A1,A2 7 10 12 13 14 15 C1,C3
 **/
+///模板待测！！！
 bool DiscIntersectPolygon(Polygon poly,Point p,double R)
 {
     if(isPointInPolygon(p,poly))
@@ -155,6 +158,7 @@ bool DiscIntersectPolygon(Polygon poly,Point p,double R)
 #C7.删除平面的三点共线
 需要条件：A1,C1
 **/
+///模板待测！！！
 //假定poly没有相邻点重合的情况，只需要删除三点共线的情况
 Polygon DeleteCollinearPoints(Polygon &poly)
 {
@@ -177,6 +181,7 @@ Polygon DeleteCollinearPoints(Polygon &poly)
 #C8.有向直线切割多边形
 需要条件：A1 A3 7 C1
 **/
+///模板待测！！！
 //用有向直线A->B切割多边形poly，返回“左侧”。 如果退化，可能会返回一个单点或者线段
 Polygon CutPolygon(Polygon& poly,Point A,Point B)
 {
@@ -285,7 +290,7 @@ bool isCircleInPolygon(Circle C,int n,Polygon &poly)
 {
     for(int i=0; i<n; i++)
     {
-        if(dcmp(DistanceToLine(C.c,Line(poly[i%n],poly[(i+1)%n]))-C.r)<0)
+        if(dcmp(DistanceToLine(C.p,Line(poly[i%n],poly[(i+1)%n]))-C.r)<0)
             return false;
     }
     return true;
