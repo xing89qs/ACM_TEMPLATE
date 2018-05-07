@@ -5,7 +5,8 @@
 #D1.旋转卡壳求平面最远点对
 #D2.旋转卡壳求两个凸包的最近点对
 #D3.旋转卡壳求平面点集构成的最大三角形面积
-#D4.旋转卡壳求包围点的最小面积（周长）的矩形
+#D4.旋转卡壳求平面点集构成的最大四边形面积
+#D5.旋转卡壳求包围点的最小面积（周长）的矩形
 **/
 
 
@@ -111,7 +112,31 @@ Type RotatingCalipers(Point *p,int n)
 
 
 /**
-#D4.旋转卡壳求包围点的最小面积（周长）的矩形
+#D4.旋转卡壳求平面点集构成的最大四边形面积
+需要条件：A1,A2,C9
+**/
+Type RotatingCalipers(Point *p,int n)
+{
+    Type ans = 0;
+    p[n] = p[0];
+    for(int i=0; i<n; i++)
+    {
+        int q1 = i, q2 = i + 1;
+        for(int j=i+1; j<n; j++)
+        {
+            while(q1!=j && dcmp(fabs(Cross(p[i],p[j],p[q1+1]))-fabs(Cross(p[i],p[j],p[q1]))) > 0)
+                q1 = (q1 + 1) % n;
+            while(q2!=i && dcmp(fabs(Cross(p[i],p[j],p[q2+1]))-fabs(Cross(p[i],p[j],p[q2]))) > 0)
+                q2 = (q2 + 1) % n;
+            ans = max(ans,fabs(Cross(p[i],p[j],p[q1]))+fabs(Cross(p[i],p[j],p[q2])));
+        }
+    }
+    return ans / 2.0;
+}
+
+
+/**
+#D5.旋转卡壳求包围点的最小面积（周长）的矩形
 需要条件：A1,A2,A5,C9
 **/
 //p是凸包，n是凸包点数
