@@ -70,20 +70,43 @@ Type RotatingCalipers(Point *p,int np,Point *q,int nq)
 #D3.旋转卡壳求平面点集构成的最大三角形面积
 需要条件：A1,A2,C9
 **/
+//高级板，速度较快
 Type RotatingCalipers(Point *p,int n)
 {
-    int j = 1, k = 2;
+    Type ans = 0;
+    int j,k;
+    for(int i=0; i<n; i++)
+    {
+        j = (i + 1) % n;
+        k = (j + 1) % n;
+        while(dcmp(Cross(p[i],p[j],p[(k+1)%n])-Cross(p[i],p[j],p[k])) > 0)
+            k = (k + 1) % n;
+        while(i != j && k != i)
+        {
+            ans = max(ans,Cross(p[i],p[j],p[k]));
+            while(dcmp(Cross(p[i],p[j],p[(k+1)%n])-Cross(p[i],p[j],p[k])) > 0)
+                k = (k + 1) % n;
+            j = (j + 1) % n;
+        }
+    }
+    return ans / 2.0;
+}
+
+//保守模板，速度较慢
+Type RotatingCalipers(Point *p,int n)
+{
     Type ans = 0;
     for(int i=0; i<n; i++)
     {
-        while(dcmp(Cross(p[i],p[j],p[(k+1)%n])-Cross(p[i],p[j],p[k])) > 0)
-            k = (k + 1) % n;
-        ans = max(ans,Cross(p[i],p[j],p[k])/2.0);
-        while(dcmp(Cross(p[i],p[(j+1)%n],p[k])-Cross(p[i],p[j],p[k])) > 0)
-            j = (j + 1) % n;
-        ans = max(ans,Cross(p[i],p[j],p[k])/2.0);
+        int k = 1;
+        for(int j=i+1; j<n; j++)
+        {
+            while(dcmp(Cross(p[i],p[j],p[k+1])-Cross(p[i],p[j],p[k])) > 0)
+                k = (k + 1) % n;
+            ans = max(ans,Cross(p[i],p[j],p[k]));
+        }
     }
-    return ans;
+    return ans / 2.0;
 }
 
 
