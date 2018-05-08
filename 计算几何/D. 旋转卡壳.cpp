@@ -139,21 +139,22 @@ Type RotatingCalipers(Point *p,int n)
 #D5.旋转卡壳求包围点的最小面积（周长）的矩形
 需要条件：A1,A2,A5,C9
 **/
-///模板待测！！！
 //p是凸包，n是凸包点数
 pair<Type,Type> RotatingCalipers(Point *p,int n)
 {
+    if(n<3) //避免精度问题，否则1个点的时候可能不会返回0
+        return MP(0,0);
     p[n] = p[0];
     Type minS = 1e99, minC = 1e99;  //最小的矩形面积和矩形周长
     int l = 1, r = 1, u = 1;
     for(int i=0; i<n; i++)
     {
         Vector v = ToUnit(p[i+1] - p[i]);
-        while(dcmp(v*(p[r%n]-p[i])-v*(p[(r+1)%n]-p[i])) < 0)    //右边
+        while(dcmp((v*(p[r%n]-p[i]))-(v*(p[(r+1)%n]-p[i]))) < 0)    //右边
             r++;
-        while(u < r || dcmp(v^(p[u%n]-p[i])-v^(p[(u+1)%n]-p[i])) < 0)   //上边
+        while(u < r || dcmp((v^(p[u%n]-p[i]))-(v^(p[(u+1)%n]-p[i]))) < 0)   //上边
             u++;
-        while(l < u || dcmp(v*(p[l%n]-p[i])-v*(p[(l+1)%n]-p[i])) > 0)   //左边
+        while(l < u || dcmp((v*(p[l%n]-p[i]))-(v*(p[(l+1)%n]-p[i]))) > 0)   //左边
             l++;
         Type w = v * (p[r%n] - p[i]) - v * (p[l%n] - p[i]);
         Type h = DistanceToLine(p[u%n],Line(p[i],p[i+1]));
