@@ -1,30 +1,42 @@
-//对于YES_LEFT或者NO_RIGHT
-int biSearch(int l, int r, int val)
+
+typedef int Type;
+
+Type cal(Type val)
 {
-    int mid, left = l, right = r;
-    while(left <= right)
-    {
-        mid = (left + right) >> 1;
-        if(num[mid] >= val)
-            right = mid - 1;
-        else
-            left = mid + 1;
-    }
-    return left;
+    /*这里写相关函数的表达式*/
 }
 
-
-//对于YES_RIGHT或者NO_LEFT
-int biSearch(int l, int r, int val)
+//对于整数
+Type biSearch(Type l,Type r,Type val)
 {
-    int mid, left = l, right = r;
-    while(left <= right)
+    Type ans = -1;
+    while(l <= r)   //对于整数
     {
-        mid = (left + right) >> 1;
-        if(num[mid] > val)
-            right = mid - 1;
+        Type mid = (l + r) >> 1;    //对于整数
+        if(cal(mid) < val)  //对于左边界能取到，右边界不能取到
+        //if(cal(mid) <= val)   //对于右边界能取到，左边界不能取到
+        {
+            ans = mid;
+            l = mid + 1;
+        }
         else
-            left = mid + 1;
+            r = mid - 1;
     }
-    return right;
+    return ans;
+}
+
+//对于浮点数
+Type biSearch(Type l,Type r,Type val)
+{
+    while(r - l >= EPS)   //对于浮点数
+    {
+        Type mid = (l + r) / 2.0;   //对于浮点数
+        if(cal(mid) < val)  //对于左边界能取到，右边界不能取到
+        //if(cal(mid) <= val)   //对于右边界能取到，左边界不能取到
+            l = mid;
+        else
+            r = mid;
+    }
+    return l;   //对于左边界能取到，右边界不能取到
+    //return r; //对于右边界能取到，左边界不能取到
 }
