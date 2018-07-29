@@ -230,7 +230,7 @@ typedef Line Segment;
 #A4.两直线交点
 需要条件：A1,A2,A3
 **/
-Point LineIntersection(Line &L1,Line& L2)
+Point LineIntersection(Line &L1,Line &L2)
 {
     Vector u = L1.a - L2.a;
     Vector v1 = L1.b - L1.a, v2 = L2.b - L2.a;

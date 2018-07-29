@@ -179,9 +179,8 @@ Polygon DeleteCollinearPoints(Polygon &poly)
 
 /**
 #C8.有向直线切割多边形
-需要条件：A1 A3 7 C1
+需要条件：A1 A3 A4 A8 C1
 **/
-///模板待测！！！
 //用有向直线A->B切割多边形poly，返回“左侧”。 如果退化，可能会返回一个单点或者线段
 Polygon CutPolygon(Polygon& poly,Point A,Point B)
 {
@@ -195,8 +194,11 @@ Polygon CutPolygon(Polygon& poly,Point A,Point B)
             newpoly.PB(C);
         if(dcmp((B-A)^(C-D)) != 0)
         {
-            Point ip = LineIntersection(A, B-A, C, D-C);
-            if(OnSegment(ip, C, D))
+            Line l1 = Line(A,B);
+            Line l2 = Line(C,D);
+            Point ip = LineIntersection(l1,l2);
+            Segment seg = Segment(C,D);
+            if(OnSegment(ip,seg))
                 newpoly.PB(ip);
         }
     }
