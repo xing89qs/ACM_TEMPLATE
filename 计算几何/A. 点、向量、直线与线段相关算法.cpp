@@ -14,6 +14,7 @@
 #A10.两点式转一般式 Ax + By + C = 0
 #A11.判断直线和线段相交
 #A12.点的极角排序
+#A13.分治法求平面最近点对
 **/
 
 
@@ -385,4 +386,56 @@ bool AngleCmp(const Point &a,const Point &b)    //先按象限排序，再按极
     Point O;
     O.y = O.x = 0;
     return (a - O) ^ (b - O) > 0 || ((a - O) ^ (b - O) == 0 && a.x < b.x);
+}
+
+
+/**
+#A13.分治法求平面最近点对
+需要条件：A1,A2
+**/
+Point p[MAXN];
+int tmp[MAXN];
+
+bool cmp(Point a,Point b)
+{
+    if(a.x == b.x)
+        return a.y < b.y;
+    return a.x < b.x;
+}
+
+bool cmpy(int idxa,int idxb)
+{
+    return p[idxa].y < p[idxb].y;
+}
+
+double closestPair(int left,int right)
+{
+    double d = INF;
+    if(left == right)
+        return d;
+    if(left + 1 == right)
+        return Length(p[left],p[right]);
+    int mid = (left + right) >> 1;
+    double d1 = closestPair(left,mid);
+    double d2 = closestPair(mid+1,right);
+    d = min(d1,d2);
+    int k = 0;
+    //分离出宽度为d的区间
+    for(int i=left; i<=right; i++)
+    {
+        if(fabs(p[mid].x-p[i].x) <= d)
+            tmp[k++] = i;
+    }
+    sort(tmp,tmp+k,cmpy);
+    //线性扫描
+    for(int i=0; i<k; i++)
+    {
+        for(int j=i+1; j<k && p[tmp[j]].y-p[tmp[i]].y<d; j++)
+        {
+            double d3 = Length(p[tmp[i]],p[tmp[j]]);
+            if(d > d3)
+                d = d3;
+        }
+    }
+    return d;
 }
