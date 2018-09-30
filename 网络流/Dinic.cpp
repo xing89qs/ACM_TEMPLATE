@@ -1,8 +1,6 @@
-//最大流Dinic算法
 
 #define MAXN 100005
 #define MAXE 2000005
-#define INF 0x3f3f3f3f
 
 class Dinic
 {
@@ -93,10 +91,14 @@ public:
 
     void buildGraph()
     {
-        node = n;
         memset(head,-1,sizeof(head));
         s = 0;
         t = n;
+        node = t;
+    }
+
+    void solve()
+    {
+        buildGraph();
     }
 } dinic;
-
