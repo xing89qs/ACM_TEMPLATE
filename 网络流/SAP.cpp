@@ -1,10 +1,7 @@
-//最大流SAP算法
 
 #define MAXN 10010
 #define MAXE 1000010
-#define INF 0x3f3f3f3f
 
-//SAP算法
 class SAP_QuickVersion
 {
 private:
