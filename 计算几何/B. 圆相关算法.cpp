@@ -27,12 +27,17 @@
 struct Circle
 {
     Point p;
-    double r;
-    Circle(Point p,double r):p(p),r(r) {}
+    Type r;
+    Circle(Point p,Type r):p(p),r(r) {}
     Circle() {}
     Point polarCoordinates(double a)    //求圆边界上某个点相对于圆心的极角坐标
     {
         return Point(c.x + cos(a) * r, c.y + sin(a) * r);
+    }
+    void read()
+    {
+        p.read();
+        scanf("%lf",&r);
     }
 };
 
