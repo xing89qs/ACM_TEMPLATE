@@ -14,19 +14,21 @@ public:
         Type cost;
         Edge() {}
         Edge(int v,Type cost):v(v),cost(cost) {}
-        bool operator<(const Edge& ed) const
+        bool operator <(const Edge& ed) const
         {
-            return cost>ed.cost;
+            return cost > ed.cost;
         }
     } e[MAXE];
     bool vis[MAXN];
+    int n,m;
 
-    //初始化，n为点数
-    void init(int n)
+    //初始化，n为点数，m为边数
+    void init(int n,int m)
     {
+        this -> n = n;
+        this -> m = m;
         cnt = 0;
-        for(int i = 0; i<n; i++)
-            head[i] = -1;
+        memset(head,-1,sizeof(head));
     }
 
     inline void addEdge(int u,int v,Type cost)
@@ -37,10 +39,10 @@ public:
         nxt[cnt++] = tmp;
     }
 
-    Type dijkstra(int s,int t,int n)
-    //void dijkstra(int s,int n)
+    //void dijkstra(int s)
+    Type dijkstra(int s,int t)
     {
-        for(int i = 0; i<n; i++)
+        for(int i = 0; i<=n; i++)
             d[i] = INF,vis[i] = false;
         d[s] = 0;
         priority_queue<Edge> q;
@@ -49,15 +51,17 @@ public:
         {
             Edge ed = q.top();
             q.pop();
+            if(vis[ed.v])   //没有该判断会TLE
+                continue;
             vis[ed.v] = true;
-            if(ed.v==t) //如果未给出终点t，则完全可以不要跟t有关的语句
-                return d[t];
+            //if(ed.v == t)
+            //    return d[t];
             for(int i = head[ed.v]; ~i; i = nxt[i])
             {
                 Edge ee = e[i];
-                if(!vis[ee.v]&&d[ee.v]>d[ed.v]+ee.cost)
+                if(!vis[ee.v] && d[ee.v] > d[ed.v] + ee.cost)
                 {
-                    d[ee.v] = d[ed.v]+ee.cost;
+                    d[ee.v] = d[ed.v] + ee.cost;
                     /*
                      *  最短路树
                     	p[ee.v] = MP(u,i);
