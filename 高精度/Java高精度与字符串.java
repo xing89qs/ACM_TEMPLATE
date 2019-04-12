@@ -44,6 +44,7 @@ class InputReader {
 
 
 /*输出*/
+System.out.println(x);
 PrintWriter out = new PrintWriter(new BufferedOutputStream(System.out));
 out.println(n); 
 out.printf("%.2f\n", ans);	//与c语言中printf用法相同
@@ -65,7 +66,7 @@ public class Main {
 		n = cin.nextInt();
 		BigInteger x = BigInteger.valueOf(2);
 		BigInteger[] a = new BigInteger[105];
-		BigInteger[][] dp = new BigInteger[105][1005];	//用i种钱凑出金额j的总方案数
+		BigInteger[][] dp = new BigInteger[105][1005];
 		/*if(x.equals(BigInteger.ZERO)) {
 			...
 		}
@@ -81,26 +82,45 @@ public class Main {
 
 
 /*BigInteger*/
-import java.math.BigInteger; 
-//主要有以下方法可以使用： 
-BigInteger add(BigInteger other) 
-BigInteger subtract(BigInteger other) 
-BigInteger multiply(BigInteger other) 
-BigInteger divide(BigInteger other)
-BigInteger [] dividedandRemainder(BigInteger other)	//数组第一位是商，第二位是余数
-BigInteger pow(BigDecimal other)	//other次方
-BigInteger mod(BigInteger other) 
-BigInteger gcd(BigInteger other) 
-int compareTo(BigInteger other) 
-static BigInteger valueOf(long x)
+import java.math.BigInteger;
+//常量定义：
+static BigInteger ONE	//大整数 1
+static BigInteger TEN	//大整数 10
+static BigInteger ZERO	//大整数 0
+//主要有以下方法可以使用：
+BigInteger abs()	//绝对值（abs(this)）
+BigInteger add(BigInteger val)	//加法（this + val）
+BigInteger subtract(BigInteger val)	//减法（this - val）
+BigInteger multiply(BigInteger val)	//乘法（this * val）
+BigInteger divide(BigInteger val)	//除法（this / val）
+BigInteger [] dividedandRemainder(BigInteger val)	//余数和商（返回一个数组：第一位是商，第二位是余数）
+BigInteger pow(BigDecimal val)	//val次幂（this ** val）
+BigInteger mod(BigInteger val)	//对val取模（this % val）
+BigInteger gcd(BigInteger val)	//最大公约数（gcd(this, val)）
+BigInteger and(BigInteger val)	//取与（this & val）
+BigInteger andNot(BigInteger val)	//与反（this & ~val）
+BigInteger not()	//取反（~this）
+BigInteger or(BigInteger val)	//取或（this | val）
+BigInteger xor(BigInteger val)	//取或（this ^ val）
+BigInteger shiftLeft(int n)	//左移（this << n）
+BigInteger shiftRight(int n)	//右移（this >> n）
+BigInteger max(BigInteger val)	//取最大值（max(this, val)）
+BigInteger min(BigInteger val)	//取最小值（min(this, val)）
+BigInteger modInverse(BigInteger m)	//求逆元（this**(-1) % m）
+BigInteger modPow(BigInteger exponent, BigInteger m)	//求模幂（this**exponent % m）
+int compareTo(BigInteger val)	//相当于 x 与 val 比较（this CMP val）
+boolean equals(Object x)	//判断是否相等（this == x）
+static BigInteger valueOf(long val)	//把val转化为大整数值
 //输出数字时直接使用 System.out.println(a) 即可
-
+int	intValue()	//转换为整形变量
+long longValue()	//转换为长整形变量
+String toString()	//转换为字符串
 
 /*BigDecimal*/
-BigDecimal add(BigDecimal other)
-BigDecimal subtract(BigDecimal other)
-BigDecimal multiply(BigDecimal other)
-BigInteger divide(BigInteger other)
+BigDecimal add(BigDecimal val)
+BigDecimal subtract(BigDecimal val)
+BigDecimal multiply(BigDecimal val)
+BigInteger divide(BigInteger val)
 BigDecimal divide(BigDecimal divisor, int scale, BigDecimal.ROUND_HALF_UP)
 BigDecimal.setScale()方法用于格式化小数点	//setScale(1)表示保留一位小数，默认用四舍五入方式
 
