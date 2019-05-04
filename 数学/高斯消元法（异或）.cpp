@@ -81,9 +81,13 @@ int solve(int equ, int var) //枚举自由变元
             int cnt = 0;   //当前涂色方案需要涂的次数
             for(int j = 0; j < res; j++)  //枚举自由变元
             {
-                x[free_x[j]] = (i & (1<<j));  //该自由变元取1
-                if(x[free_x[j]])
+                if(i & (1<<j))    //该自由变元取1
+                {
+                    x[free_x[j]] = 1;
                     cnt++;
+                }
+                else
+                    x[free_x[j]] = 0;
             }
             for(int j = var-res-1; j >= 0; j--)   //从消完元矩阵的主对角线非0的最后一行开始回代
             {
