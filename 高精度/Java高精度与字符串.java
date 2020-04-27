@@ -94,7 +94,7 @@ BigInteger subtract(BigInteger val)	//减法（this - val）
 BigInteger multiply(BigInteger val)	//乘法（this * val）
 BigInteger divide(BigInteger val)	//除法（this / val）
 BigInteger [] dividedandRemainder(BigInteger val)	//余数和商（返回一个数组：第一位是商，第二位是余数）
-BigInteger pow(BigDecimal val)	//val次幂（this ** val）
+BigInteger pow(int val)	//val次幂（this ** val）
 BigInteger mod(BigInteger val)	//对val取模（this % val）
 BigInteger gcd(BigInteger val)	//最大公约数（gcd(this, val)）
 BigInteger and(BigInteger val)	//取与（this & val）
@@ -106,23 +106,43 @@ BigInteger shiftLeft(int n)	//左移（this << n）
 BigInteger shiftRight(int n)	//右移（this >> n）
 BigInteger max(BigInteger val)	//取最大值（max(this, val)）
 BigInteger min(BigInteger val)	//取最小值（min(this, val)）
-BigInteger modInverse(BigInteger m)	//求逆元（this**(-1) % m）
-BigInteger modPow(BigInteger exponent, BigInteger m)	//求模幂（this**exponent % m）
+BigInteger modInverse(BigInteger m)	//求逆元（this ** (-1) % m）
+BigInteger modPow(BigInteger exponent, BigInteger m)	//求模幂（this ** exponent % m）
+static BigInteger valueOf(long val)	//把长整数val转化为大整数值
 int compareTo(BigInteger val)	//相当于 x 与 val 比较（this CMP val）
 boolean equals(Object x)	//判断是否相等（this == x）
-static BigInteger valueOf(long val)	//把val转化为大整数值
-//输出数字时直接使用 System.out.println(a) 即可
 int	intValue()	//转换为整形变量
 long longValue()	//转换为长整形变量
 String toString()	//转换为字符串
+//输出数字时直接使用 System.out.println(a) 即可
+
 
 /*BigDecimal*/
-BigDecimal add(BigDecimal val)
-BigDecimal subtract(BigDecimal val)
-BigDecimal multiply(BigDecimal val)
-BigInteger divide(BigInteger val)
+import java.math.BigDecimal;
+//常量定义：
+static BigDecimal ONE	//高精度小数 1（不保留小数点后的0）
+static BigDecimal TEN	//高精度小数 10（不保留小数点后的0）
+static BigDecimal ZERO	//高精度小数 0（不保留小数点后的0）
+//主要有以下方法可以使用：
+BigDecimal abs()	//绝对值（abs(this)）
+BigDecimal add(BigDecimal val)	//加法（this + val）
+BigDecimal subtract(BigDecimal val)	//减法（this - val）
+BigDecimal multiply(BigDecimal val)	//乘法（this * val）
+BigDecimal divide(BigDecimal val)	//除法（this / val）
 BigDecimal divide(BigDecimal divisor, int scale, BigDecimal.ROUND_HALF_UP)
-BigDecimal.setScale()方法用于格式化小数点	//setScale(1)表示保留一位小数，默认用四舍五入方式
+BigDecimal pow(int k)	//k次幂（this ** k）
+BigDecimal stripTrailingZeros()	//将小数点后多余的零去掉（例如 1.00 -> 1）
+BigDecimal setScale()	//用于格式化小数点：setScale(1)表示保留一位小数，默认用四舍五入方式
+static BigDecimal valueOf(double val)	//把浮点数val转换为高精度小数
+static BigDecimal valueOf(long val)	//把长整数val转换为高精度小数
+boolean equals(Object x)	//判断是否相等（this == x）
+int	intValue()	//转换为整形变量
+long longValue()	//转换为长整形变量
+float floatValue()	//转换为单精度浮点数
+double doubleValue()	//转换为双精度浮点数
+String toPlainString()	//直接原样转换为字符串格式
+String toString()	//转换为用科学计数法表示的字符串格式
+//输出数字时直接使用 System.out.println(a) 即可
 
 
 /*字符串*/
