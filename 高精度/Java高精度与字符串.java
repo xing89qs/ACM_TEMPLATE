@@ -154,6 +154,9 @@ for(int i = 0; i < ch.length; i++) {
 }
 System.out.println(ch);	//输入为“bcdefgh”.
 
+boolean startsWith(String str)	//判断字符串的前缀是否为str
+String substring(int beginIndex, int endIndex)	//截取字符串的子串（beginIndex为子串起始下标，endIndex为子串的结束下标）
+
 
 /*进制转换*/
 String s = Integer.toString(a, x);	//把int型数据转换乘X进制数并转换成string型
