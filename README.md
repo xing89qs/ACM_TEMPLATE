@@ -142,19 +142,19 @@ ACM模板
 
 ### 计算几何
 
-+ #### [*计算几何模板详细目录*](https://github.com/ThoseBygones/ACM_TEMPLATE/blob/master/计算几何/计算几何模板目录.txt)
++ [*计算几何模板详细目录*](https://github.com/ThoseBygones/ACM_TEMPLATE/blob/master/计算几何/计算几何模板目录.txt)
 
-+ #### [**A. 点、向量、直线与线段相关算法**](https://github.com/ThoseBygones/ACM_TEMPLATE/blob/master/计算几何/A. 点、向量、直线与线段相关算法.cpp)
++ [**A. 点、向量、直线与线段相关算法**](https://github.com/ThoseBygones/ACM_TEMPLATE/blob/master/计算几何/A. 点、向量、直线与线段相关算法.cpp)
 
-+ #### [**B. 圆相关算法**](https://github.com/ThoseBygones/ACM_TEMPLATE/blob/master/计算几何/B. 圆相关算法.cpp)
++ [**B. 圆相关算法**](https://github.com/ThoseBygones/ACM_TEMPLATE/blob/master/计算几何/B. 圆相关算法.cpp)
 
-+ #### [**C. 多边形和凸包相关算法**](https://github.com/ThoseBygones/ACM_TEMPLATE/blob/master/计算几何/C. 多边形和凸包相关算法.cpp)
++ [**C. 多边形和凸包相关算法**](https://github.com/ThoseBygones/ACM_TEMPLATE/blob/master/计算几何/C. 多边形和凸包相关算法.cpp)
 
-+ #### [**D. 旋转卡壳**](https://github.com/ThoseBygones/ACM_TEMPLATE/blob/master/计算几何/D. 旋转卡壳.cpp)
++ [**D. 旋转卡壳**](https://github.com/ThoseBygones/ACM_TEMPLATE/blob/master/计算几何/D. 旋转卡壳.cpp)
 
-+ #### [**E. 半平面交**](https://github.com/ThoseBygones/ACM_TEMPLATE/blob/master/计算几何/E. 半平面交.cpp)
++ [**E. 半平面交**](https://github.com/ThoseBygones/ACM_TEMPLATE/blob/master/计算几何/E. 半平面交.cpp)
 
-+ #### [**F. 平面直线图**](https://github.com/ThoseBygones/ACM_TEMPLATE/blob/master/计算几何/F. 平面直线图.cpp)
++ [**F. 平面直线图**](https://github.com/ThoseBygones/ACM_TEMPLATE/blob/master/计算几何/F. 平面直线图.cpp)
 
 
 
@@ -184,6 +184,6 @@ ACM模板
 
 
 
-##未测过（即将测试）的模板目录：
+## 未测过（即将测试）的模板目录：
 
 + 暂无（看心情吧，不知道下面想学啥...）
