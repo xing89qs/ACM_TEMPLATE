@@ -25,7 +25,7 @@ ACM模板
 
 ### 字符串算法
 
-+ ####KMP算法
++ #### KMP算法
 
   + [**KMP**](https://github.com/ThoseBygones/ACM_TEMPLATE/blob/master/字符串/KMP.cpp)
 
@@ -33,28 +33,28 @@ ACM模板
 
   + [**KMP最小表示法**](https://github.com/ThoseBygones/ACM_TEMPLATE/blob/master/字符串/KMP最小表示法.cpp)
 
-+ ####[Manacher算法](https://github.com/ThoseBygones/ACM_TEMPLATE/blob/master/字符串/Manacher.cpp)
++ #### [Manacher算法](https://github.com/ThoseBygones/ACM_TEMPLATE/blob/master/字符串/Manacher.cpp)
 
-+ ####[Trie字典树](https://github.com/ThoseBygones/ACM_TEMPLATE/blob/master/字符串/Trie.cpp)
++ #### [Trie字典树](https://github.com/ThoseBygones/ACM_TEMPLATE/blob/master/字符串/Trie.cpp)
 
 
 
 ### 数据结构
 
-+ ####线段树
++ #### 线段树
 
   + [**线段树（数组版）**](https://github.com/ThoseBygones/ACM_TEMPLATE/blob/master/数据结构/线段树（数组版）.cpp)
   + [**线段树（结构体版）**](https://github.com/ThoseBygones/ACM_TEMPLATE/blob/master/数据结构/线段树（结构体版）.cpp)
 
-+ ####[树状数组](https://github.com/ThoseBygones/ACM_TEMPLATE/blob/master/数据结构/树状数组.cpp)
++ #### [树状数组](https://github.com/ThoseBygones/ACM_TEMPLATE/blob/master/数据结构/树状数组.cpp)
 
-+ ####[二维树状数组](https://github.com/ThoseBygones/ACM_TEMPLATE/blob/master/数据结构/二维树状数组.cpp)
++ #### [二维树状数组](https://github.com/ThoseBygones/ACM_TEMPLATE/blob/master/数据结构/二维树状数组.cpp)
 
 
 
 ### 图论
 
-+ ####最小生成树
++ #### 最小生成树
 
   + [**Prim算法**](https://github.com/ThoseBygones/ACM_TEMPLATE/blob/master/图论/prim.cpp)
   + [**Kruskal算法**](https://github.com/ThoseBygones/ACM_TEMPLATE/blob/master/图论/kruskal.cpp)
@@ -73,7 +73,7 @@ ACM模板
   + [**点-双连通分量**](https://github.com/ThoseBygones/ACM_TEMPLATE/blob/master/图论/点-双连通分量.cpp)
   + [**点连通度与边连通度**](https://github.com/ThoseBygones/ACM_TEMPLATE/blob/master/图论/点连通度与边连通度.cpp)
 
-+ ####有向图
++ #### 有向图
 
   + [**有向图判环（DFS染色法）**](https://github.com/ThoseBygones/ACM_TEMPLATE/blob/master/图论/有向图判环（DFS染色法）.cpp)
   + [**有向图强联通分量（Tarjan算法）**](https://github.com/ThoseBygones/ACM_TEMPLATE/blob/master/图论/有向图强联通分量Tarjan算法.cpp)
@@ -86,16 +86,16 @@ ACM模板
   + [**二分图最大匹配Hopcroft-Karp算法**](https://github.com/ThoseBygones/ACM_TEMPLATE/blob/master/图论/二分图最大匹配Hopcroft-Karp算法.cpp)
   + [**二分图完美匹配KM算法**](https://github.com/ThoseBygones/ACM_TEMPLATE/blob/master/图论/二分图完美匹配KM算法.cpp)
 
-+ ####LCA
++ #### LCA
 
   + [**LCA在线算法（倍增）**](https://github.com/ThoseBygones/ACM_TEMPLATE/blob/master/图论/LCA在线倍增.cpp)
   + [**LCA离线算法（Tarjan算法）**](https://github.com/ThoseBygones/ACM_TEMPLATE/blob/master/图论/LCA离线Tarjan算法.cpp)
 
 + #### [最小树形图朱刘算法](https://github.com/ThoseBygones/ACM_TEMPLATE/blob/master/图论/最小树形图朱刘算法.cpp)
 
-+ ####[全局最小割Stoer_Wagner算法](https://github.com/ThoseBygones/ACM_TEMPLATE/blob/master/图论/全局最小割Stoer_Wagner算法.cpp)
++ #### [全局最小割Stoer_Wagner算法](https://github.com/ThoseBygones/ACM_TEMPLATE/blob/master/图论/全局最小割Stoer_Wagner算法.cpp)
 
-+ ####[2-SAT](https://github.com/ThoseBygones/ACM_TEMPLATE/blob/master/图论/2-SAT.cpp)
++ #### [2-SAT](https://github.com/ThoseBygones/ACM_TEMPLATE/blob/master/图论/2-SAT.cpp)
 
 
 
@@ -113,7 +113,7 @@ ACM模板
   + [**MCMF**](https://github.com/ThoseBygones/ACM_TEMPLATE/blob/master/网络流/MCMF.cpp)
   + [**zkw费用流**](https://github.com/ThoseBygones/ACM_TEMPLATE/blob/master/网络流/zkw费用流.cpp)
 
-+ ####[最大权闭合子图](https://github.com/ThoseBygones/ACM_TEMPLATE/blob/master/网络流/最大权闭合子图.cpp)
++ #### [最大权闭合子图](https://github.com/ThoseBygones/ACM_TEMPLATE/blob/master/网络流/最大权闭合子图.cpp)
 
 
 
@@ -128,13 +128,13 @@ ACM模板
   + [**扩展欧几里得算法**](https://github.com/ThoseBygones/ACM_TEMPLATE/blob/master/数学/扩展欧几里得.cpp)
   + [**求逆元**](https://github.com/ThoseBygones/ACM_TEMPLATE/blob/master/数学/逆元.cpp)
 
-+ ####线性代数
++ #### 线性代数
 
   + [**高斯消元法（整数）**](https://github.com/ThoseBygones/ACM_TEMPLATE/blob/master/数学/高斯消元法（整数）.cpp)
   + [**高斯消元法（浮点数）**](https://github.com/ThoseBygones/ACM_TEMPLATE/blob/master/数学/高斯消元法（浮点数）.cpp)
   + [**高斯消元法（异或）**](https://github.com/ThoseBygones/ACM_TEMPLATE/blob/master/数学/高斯消元法（异或）.cpp)
 
-+ ####组合数学
++ #### 组合数学
 
   + [**求组合数**](https://github.com/ThoseBygones/ACM_TEMPLATE/blob/master/数学/组合数.cpp)
 
@@ -142,19 +142,19 @@ ACM模板
 
 ### 计算几何
 
-+ ####[*计算几何模板详细目录*](https://github.com/ThoseBygones/ACM_TEMPLATE/blob/master/计算几何/计算几何模板目录.txt)
++ #### [*计算几何模板详细目录*](https://github.com/ThoseBygones/ACM_TEMPLATE/blob/master/计算几何/计算几何模板目录.txt)
 
-+ ####[**A. 点、向量、直线与线段相关算法**](https://github.com/ThoseBygones/ACM_TEMPLATE/blob/master/计算几何/A. 点、向量、直线与线段相关算法.cpp)
++ #### [**A. 点、向量、直线与线段相关算法**](https://github.com/ThoseBygones/ACM_TEMPLATE/blob/master/计算几何/A. 点、向量、直线与线段相关算法.cpp)
 
-+ ####[**B. 圆相关算法**](https://github.com/ThoseBygones/ACM_TEMPLATE/blob/master/计算几何/B. 圆相关算法.cpp)
++ #### [**B. 圆相关算法**](https://github.com/ThoseBygones/ACM_TEMPLATE/blob/master/计算几何/B. 圆相关算法.cpp)
 
-+ ####[**C. 多边形和凸包相关算法**](https://github.com/ThoseBygones/ACM_TEMPLATE/blob/master/计算几何/C. 多边形和凸包相关算法.cpp)
++ #### [**C. 多边形和凸包相关算法**](https://github.com/ThoseBygones/ACM_TEMPLATE/blob/master/计算几何/C. 多边形和凸包相关算法.cpp)
 
-+ ####[**D. 旋转卡壳**](https://github.com/ThoseBygones/ACM_TEMPLATE/blob/master/计算几何/D. 旋转卡壳.cpp)
++ #### [**D. 旋转卡壳**](https://github.com/ThoseBygones/ACM_TEMPLATE/blob/master/计算几何/D. 旋转卡壳.cpp)
 
-+ ####[**E. 半平面交**](https://github.com/ThoseBygones/ACM_TEMPLATE/blob/master/计算几何/E. 半平面交.cpp)
++ #### [**E. 半平面交**](https://github.com/ThoseBygones/ACM_TEMPLATE/blob/master/计算几何/E. 半平面交.cpp)
 
-+ ####[**F. 平面直线图**](https://github.com/ThoseBygones/ACM_TEMPLATE/blob/master/计算几何/F. 平面直线图.cpp)
++ #### [**F. 平面直线图**](https://github.com/ThoseBygones/ACM_TEMPLATE/blob/master/计算几何/F. 平面直线图.cpp)
 
 
 
@@ -166,7 +166,7 @@ ACM模板
 
 + #### [三分查找](https://github.com/ThoseBygones/ACM_TEMPLATE/blob/master/常用小算法汇总/三分查找.cpp)
 
-+ ####[启发式搜索A*算法](https://github.com/ThoseBygones/ACM_TEMPLATE/blob/master/常用小算法汇总/启发式搜索A_Star.cpp)
++ #### [启发式搜索A*算法](https://github.com/ThoseBygones/ACM_TEMPLATE/blob/master/常用小算法汇总/启发式搜索A_Star.cpp)
 
 + #### 动态规划（dp）
 
@@ -178,9 +178,9 @@ ACM模板
 
 + #### [线性筛法](https://github.com/ThoseBygones/ACM_TEMPLATE/blob/master/常用小算法汇总/线性筛法.cpp)
 
-+ ####[线性预处理逆元](https://github.com/ThoseBygones/ACM_TEMPLATE/blob/master/常用小算法汇总/线性预处理逆元.cpp)
++ #### [线性预处理逆元](https://github.com/ThoseBygones/ACM_TEMPLATE/blob/master/常用小算法汇总/线性预处理逆元.cpp)
 
-+ ####[莫队算法](https://github.com/ThoseBygones/ACM_TEMPLATE/blob/master/常用小算法汇总/莫队算法.cpp)
++ #### [莫队算法](https://github.com/ThoseBygones/ACM_TEMPLATE/blob/master/常用小算法汇总/莫队算法.cpp)
 
 
 
