@@ -2,7 +2,7 @@
 
 int color[MAXN];
 
-bool findLoop(int u)
+bool dfs(int u)
 {
     color[u] = 1;
     for(int i = head[u]; ~i; i = e[i].nxt)
@@ -10,9 +10,22 @@ bool findLoop(int u)
         int v = e[i].to;
         if(color[v] == 1)
             return true;
-        if(findLoop(v))
+        if(!color[v] && dfs(v)) //下一个结点还未被处理过
             return true;
     }
     color[u] = 2;
+    return false;
+}
+
+bool findLoop(int n)
+{
+    for(int i = 0; i < n; i++)
+    {
+        if(!color[i])
+        {
+            if(dfs(i))
+                return true;
+        }
+    }
     return false;
 }
