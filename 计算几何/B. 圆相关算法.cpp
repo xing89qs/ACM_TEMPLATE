@@ -161,16 +161,16 @@ int getSegmentCircleIntersection(Line L,Circle C,vector<Point>& sol)
 #B6.两圆交点
 需要条件：A1,A2,B1
 **/
-int getTwoCirclesIntersection(Circle c1,Circle c2,vector<Point> &ret)
+int getTwoCirclesIntersection(Circle c1, Circle c2, vector<Point> &ret)
 {
-    Type d = Length(c1.p,c2.p);
+    Type d = Length(c1.p, c2.p);
     if(dcmp(d) == 0)
     {
         if(dcmp(c1.r - c2.r) == 0)
             return -1;  //两圆重合
         return 0;   //内含
     }
-    if(dcmp(c1.r + c2.r-d) < 0)
+    if(dcmp(c1.r + c2.r - d) < 0)
         return 0;   //相离
     if(dcmp(fabs(c1.r - c2.r) - d) > 0)
         return 0;   //内含
@@ -206,14 +206,14 @@ void getTwoCirclesIntersection(Circle C1,Circle C2,vector<double>& rad)
 #B7.两圆面积交
 需要条件：A2,B1
 **/
-Type getInterArea(Circle a,Circle b)
+Type getInterArea(Circle a, Circle b)
 {
-    Type dis = Length(a.p,b.p);
-    if(dcmp(a.r+b.r-dis) <= 0)
+    Type dis = Length(a.p, b.p);
+    if(dcmp(a.r + b.r - dis) <= 0)
         return 0;
-    if(dcmp(abs(a.r-b.r)-dis) >= 0)
+    if(dcmp(abs(a.r - b.r) - dis) >= 0)
     {
-        Type r = min(a.r,b.r);
+        Type r = min(a.r, b.r);
         return PI * r * r;
     }
     Type cosX = (dis * dis + a.r * a.r - b.r * b.r) / (2 * dis * a.r);
@@ -245,8 +245,8 @@ void getTangentPoint(Point p, Circle c, vector<Point> &v)
     double dis = Length(p, c.p);
     double base = Angle(p - c.p);
     double ang = acos(c.r / dis);
-    v.PB(Point(c.p.x + cos(base - ang) * c.r, c.p.y + sin(base - ang) * c.r));
-    v.PB(Point(c.p.x + cos(base + ang) * c.r, c.p.y + sin(base + ang) * c.r));
+    v.PB(c.polarCoordinates(base - ang));
+    v.PB(c.polarCoordinates(base + ang));
 }
 
 ///模板待测！！！
@@ -278,55 +278,54 @@ int TangentLineThroughPoint(Circle c,Point p,vector<Line> &v)
 #B10.求两圆的公切线
 需要条件：A1,B1
 **/
-///模板待测！！！
 //返回切线条数，v为所有的切线，第一个点是A上的切点，第二个点是B上的切点
-int getTangents(Circle A,Circle B,vector<Line> &v)
+int getTangents(Circle A, Circle B, vector<Line> &v)
 {
     Point ta[5], tb[5];
     Point *a = ta, *b = tb;
-    if(A.r<B.r)
+    if(A.r < B.r)
     {
-        swap(A,B);
-        swap(a,b);
+        swap(A, B);
+        swap(a, b);
     }
     int cnt = 0;
-    Type d2 = sqr(Length(A.p,B.p));
+    Type d2 = sqr(Length(A.p, B.p));
     Type rdiff = A.r - B.r;
     Type rsum = A.r + B.r;
-    if(dcmp(d2-rdiff*rdiff) < 0)
+    if(dcmp(d2 - rdiff * rdiff) < 0)
         return 0;   //内含
     Vector va = B.p - A.p;
-    Type base = atan2(va.y,va.x);
-    if(dcmp(d2) == 0 && dcmp(A.r-B.r) == 0)
+    Type base = atan2(va.y, va.x);
+    if(dcmp(d2) == 0 && dcmp(A.r - B.r) == 0)
         return -1;  //无限条切线
-    if(dcmp(d2-rdiff*rdiff) == 0)   //内切
+    if(dcmp(d2 - rdiff * rdiff) == 0)   //内切
     {
         a[cnt] = A.getPoint(base);
         b[cnt++] = B.getPoint(base);
-        v.PB(Line(ta[0],tb[0]));
+        v.PB(Line(ta[0], tb[0]));
         return 1;
     }
     //有外公切线
-    Type ang = acos((A.r-B.r)/sqrt(d2));
-    a[cnt] = A.getPoint(base+ang);
-    b[cnt++] = B.getPoint(base+ang);
-    a[cnt] = A.getPoint(base-ang);
-    b[cnt++] = B.getPoint(base-ang);
-    if(dcmp(d2-rsum*rsum) == 0) //一条内公切线
+    Type ang = acos((A.r - B.r) / sqrt(d2));
+    a[cnt] = A.getPoint(base + ang);
+    b[cnt++] = B.getPoint(base + ang);
+    a[cnt] = A.getPoint(base - ang);
+    b[cnt++] = B.getPoint(base - ang);
+    if(dcmp(d2 - rsum * rsum) == 0) //一条内公切线
     {
         a[cnt] = A.getPoint(base);
-        b[cnt++] = B.getPoint(PI+base);
+        b[cnt++] = B.getPoint(PI + base);
     }
-    else if(dcmp(d2-rsum*rsum) > 0)
+    else if(dcmp(d2 - rsum * rsum) > 0)
     {
-        Type ang = acos((A.r+B.r)/sqrt(d2));
-        a[cnt] = A.getPoint(base+ang);
-        b[cnt++] = B.getPoint(PI+base+ang);
-        a[cnt] = A.getPoint(base-ang);
-        b[cnt++] = B.getPoint(PI+base-ang);
+        Type ang = acos((A.r + B.r) / sqrt(d2));
+        a[cnt] = A.getPoint(base + ang);
+        b[cnt++] = B.getPoint(PI + base + ang);
+        a[cnt] = A.getPoint(base - ang);
+        b[cnt++] = B.getPoint(PI + base - ang);
     }
-    for(int i=0; i<cnt; i++)
-        v.PB(Line(ta[i],tb[i]));
+    for(int i = 0; i < cnt; i++)
+        v.PB(Line(ta[i], tb[i]));
     return cnt;
 }
 
@@ -335,7 +334,7 @@ int getTangents(Circle A,Circle B,vector<Line> &v)
 #B11.三角形外接圆
 需要条件：A1,A2,B1
 **/
-Circle TriangleCircumscribedCircle(Point p1,Point p2,Point p3)
+Circle TriangleCircumscribedCircle(Point p1, Point p2, Point p3)
 {
     double Bx = p2.x - p1.x, By = p2.y - p1.y;
     double Cx = p3.x - p1.x, Cy = p3.y - p1.y;
@@ -351,7 +350,7 @@ Circle TriangleCircumscribedCircle(Point p1,Point p2,Point p3)
 #B12.三角形内切圆
 需要条件：A1,A2,A5,B1
 **/
-Circle TriangleInscribedCircle(Point p1,Point p2,Point p3)
+Circle TriangleInscribedCircle(Point p1, Point p2, Point p3)
 {
     double a = Length(p2, p3);
     double b = Length(p1, p3);
