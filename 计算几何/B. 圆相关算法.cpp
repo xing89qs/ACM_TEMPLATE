@@ -32,12 +32,12 @@ struct Circle
     Circle() {}
     Point polarCoordinates(double a)    //求圆边界上某个点相对于圆心的极角坐标
     {
-        return Point(c.x + cos(a) * r, c.y + sin(a) * r);
+        return Point(p.x + cos(a) * r, p.y + sin(a) * r);
     }
     void read()
     {
         p.read();
-        scanf("%lf",&r);
+        scanf("%lf", &r);
     }
 };
 
@@ -48,7 +48,7 @@ struct Circle
 **/
 bool isInCircle(Point p, Circle C)
 {
-    return dcmp((p-C.p)*(p-C.p)-C.r*C.r) < 0;
+    return dcmp((p - C.p) * (p - C.p) - C.r * C.r) < 0;
 }
 
 
@@ -56,7 +56,6 @@ bool isInCircle(Point p, Circle C)
 #B3.直线与圆的交点
 需要条件：A1,B1
 **/
-///模板待测！！！
 //t1,t2为两个记录变量的参数，使用该函数前定义即可
 int getLineCircleIntersection(Line L,Circle C,double& t1,double& t2,vector<Point>& sol)
 {
@@ -162,23 +161,22 @@ int getSegmentCircleIntersection(Line L,Circle C,vector<Point>& sol)
 #B6.两圆交点
 需要条件：A1,A2,B1
 **/
-///模板待测！！！
 int getTwoCirclesIntersection(Circle c1,Circle c2,vector<Point> &ret)
 {
     Type d = Length(c1.p,c2.p);
     if(dcmp(d) == 0)
     {
-        if(dcmp(c1.r-c2.r) == 0)
+        if(dcmp(c1.r - c2.r) == 0)
             return -1;  //两圆重合
         return 0;   //内含
     }
-    if(dcmp(c1.r+c2.r-d) < 0)
+    if(dcmp(c1.r + c2.r-d) < 0)
         return 0;   //相离
-    if(dcmp(fabs(c1.r-c2.r)-d) > 0)
+    if(dcmp(fabs(c1.r - c2.r) - d) > 0)
         return 0;   //内含
-    Type a = Angle(c2.p-c1.p);
-    Type da = acos((c1.r*c1.r+d*d-c2.r*c2.r)/(2*c1.r*d));
-    Point p1 = c1.polarCoordinates(a-da), p2 = c1.polarCoordinates(a+da);
+    Type a = Angle(c2.p - c1.p);
+    Type da = acos((c1.r * c1.r + d * d - c2.r * c2.r) / (2 * c1.r * d));
+    Point p1 = c1.polarCoordinates(a - da), p2 = c1.polarCoordinates(a + da);
     ret.PB(p1);
     if(p1 == p2)
         return 1;
@@ -187,6 +185,7 @@ int getTwoCirclesIntersection(Circle c1,Circle c2,vector<Point> &ret)
 }
 
 //两圆相交的交点相对于圆1圆心的极角保存在rad中
+///模板待测！！！
 void getTwoCirclesIntersection(Circle C1,Circle C2,vector<double>& rad)
 {
     double d = Length(C1.p-C2.p);
@@ -241,6 +240,15 @@ double NormalizeAngle(double rad)
 #B9.求圆过某一点的所有切线
 需要条件：A1,A2,B1
 **/
+void getTangentPoint(Point p, Circle c, vector<Point> &v)
+{
+    double dis = Length(p, c.p);
+    double base = Angle(p - c.p);
+    double ang = acos(c.r / dis);
+    v.PB(Point(c.p.x + cos(base - ang) * c.r, c.p.y + sin(base - ang) * c.r));
+    v.PB(Point(c.p.x + cos(base + ang) * c.r, c.p.y + sin(base + ang) * c.r));
+}
+
 ///模板待测！！！
 //返回切线条数，也可以把int改成void不返回切线条数
 int TangentLineThroughPoint(Circle c,Point p,vector<Line> &v)
@@ -327,7 +335,6 @@ int getTangents(Circle A,Circle B,vector<Line> &v)
 #B11.三角形外接圆
 需要条件：A1,A2,B1
 **/
-///模板待测！！！
 Circle TriangleCircumscribedCircle(Point p1,Point p2,Point p3)
 {
     double Bx = p2.x - p1.x, By = p2.y - p1.y;
@@ -335,8 +342,8 @@ Circle TriangleCircumscribedCircle(Point p1,Point p2,Point p3)
     double D = 2 * (Bx * Cy - By * Cx);
     double cx = (Cy * (Bx * Bx + By * By) - By * (Cx * Cx + Cy * Cy)) / D + p1.x;
     double cy = (Bx * (Cx * Cx + Cy * Cy) - Cx * (Bx * Bx + By * By)) / D + p1.y;
-    Point p = Point(cx,cy);
-    return Circle(p,Length(p1,p));
+    Point p = Point(cx, cy);
+    return Circle(p, Length(p1, p));
 }
 
 
@@ -344,14 +351,13 @@ Circle TriangleCircumscribedCircle(Point p1,Point p2,Point p3)
 #B12.三角形内切圆
 需要条件：A1,A2,A5,B1
 **/
-///模板待测！！！
 Circle TriangleInscribedCircle(Point p1,Point p2,Point p3)
 {
-    double a = Length(p2,p3);
-    double b = Length(p1,p3);
-    double c = Length(p1,p2);
+    double a = Length(p2, p3);
+    double b = Length(p1, p3);
+    double c = Length(p1, p2);
     Point p = (p1 * a + p2 * b + p3 * c) / (a + b + c);
-    return Circle(p,DistanceToLine(p,Line(p1,p2)));
+    return Circle(p, DistanceToLine(p, Line(p1, p2)));
 }
 
 
