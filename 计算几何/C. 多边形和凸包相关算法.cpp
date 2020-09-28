@@ -89,50 +89,61 @@ Point getPolygonCenterOfGravity(Polygon &poly)
 
 
 /**
-#C5.圆和凸多边形相交的面积（圆心必须在凸多边形内部，不含边）
-需要条件：A1,A2 10 12 14 28,C1
+#C5.圆和三角形相交的面积（三角形的一个顶点为圆心）
+需要条件：A1, A2, A3, B1, B3, C1
 **/
-///模板待测！！！
-double CirclePolygonIntersectionArea(Circle C, Polygon &poly)
+double CircleTriangleIntersectionArea(Circle c, Point a, Point b)   //三角形abc与圆心c所围成的面积
 {
-    poly.push_back(poly[0]);
-    double ret = 0;
-    for (int i=0; i<poly.size()-1; i++)
+    double r = c.r;
+    if(dcmp((c.p - a) ^ (c.p - b)) == 0)
+        return 0.0;
+    vector<Point> p, tmp;
+    p.PB(a);
+    Line l(a, b);
+    if(getLineCircleIntersection(l, c, tmp) == 2)   //直线和圆的位置关系  0:相离   1:相切   2:相交
     {
-        bool flag1 = (dcmp(Length(C.p - poly[i]) - C.r) <= 0);
-        bool flag2 = (dcmp(Length(C.p - poly[i+1]) - C.r) <= 0);
-        if(flag1 + flag2 == 2)   //两个点都在圆内 算三角形
-        {
-            ret += fabs((poly[i] - C.p) ^ (poly[i+1] - C.p)) / 2.0;
-            continue;
-        }
-        vector <Point> sol;
-        int num = getSegmentCircleIntersection(poly[i],poly[i+1],C,sol);
-        if(flag1 + flag2 == 1)  //一个点在圆内一个点在圆外
-        {
-            if(flag1)
-            {
-                ret += C.r * C.r * Angle(poly[i+1]-C.p,sol[0]-C.p) / 2.0 + fabs((poly[i]-C.p)^(sol[0]-C.p)) / 2.0;
-                continue;
-            }
-            ret += C.r * C.r * Angle(poly[i]-C.p,sol[0]-C.p) / 2.0 + fabs((poly[i+1]-C.p)^(sol[0]-C.p)) / 2.0;
-            continue;
-        }
-        //两个点都在圆外
-        if (num == 2)
-        {
-            ret += C.r * C.r * (Angle(poly[i]-C.p,sol[0]-C.p) + Angle(poly[i+1]-C.p,sol[1]-C.p)) / 2.0 + fabs((sol[0]-C.p)^(sol[1]-C.p)) / 2.0;
-            continue;
-        }
-        ret += C.r * C.r * Angle(poly[i]-C.p,poly[i+1]-C.p) / 2.0;
+        if(dcmp((a - tmp[0]) * (b - tmp[0])) < 0)
+            p.PB(tmp[0]);
+        if(dcmp((a - tmp[1]) * (b - tmp[1])) < 0)
+            p.PB(tmp[1]);
     }
-    P.pop_back();
-    return ret;
+    p.PB(b);
+    if(sz(p) == 4 && dcmp((p[0] - p[1]) * (p[2] - p[1])) > 0)
+        swap(p[1], p[2]);
+    double res = 0.0;
+    for(int i = 0; i < sz(p) - 1; i++)
+    {
+        Vector v1 = p[i] - c.p, v2 = p[i + 1] - c.p;
+        if(dcmp(Length(v1) - c.r) > 0 || dcmp(Length(v2) - c.r) > 0)
+        {
+            double arg = Angle(v1, v2);
+            res += c.r * c.r * arg / 2.0;
+        }
+        else
+            res += fabs((v1 ^ v2) / 2.0);
+    }
+    return res;
 }
 
 
 /**
-#C6.返回圆盘是否与多边形相交
+#C6.圆和多边形相交的面积（利用三角剖分）
+需要条件：A1, C1, C5
+**/
+double CirclePolygonIntersectionArea(Circle c, Polygon &poly)
+{
+    double ret = 0;
+    for(int i = 0; i < sz(poly); i++)
+    {
+        Vector v1 = poly[i] - c.p, v2 = poly[(i + 1) % sz(poly)] - c.p;
+        ret += 1.0 * dcmp(v1 ^ v2) * CircleTriangleIntersectionArea(c, poly[i], poly[(i + 1) % sz(poly)]);
+    }
+    return fabs(ret);
+}
+
+
+/**
+#C7.返回圆盘是否与多边形相交
 需要条件：A1,A2 7 10 12 13 14 15 C1,C3
 **/
 ///模板待测！！！
@@ -155,7 +166,7 @@ bool DiscIntersectPolygon(Polygon poly,Point p,double R)
 
 
 /**
-#C7.删除平面的三点共线
+#C8.删除平面的三点共线
 需要条件：A1,C1
 **/
 ///模板待测！！！
@@ -178,7 +189,7 @@ Polygon DeleteCollinearPoints(Polygon &poly)
 
 
 /**
-#C8.有向直线切割多边形
+#C9.有向直线切割多边形
 需要条件：A1 A3 A4 A8 C1
 **/
 //用有向直线A->B切割多边形poly，返回“左侧”。 如果退化，可能会返回一个单点或者线段
@@ -207,10 +218,10 @@ Polygon CutPolygon(Polygon& poly,Point A,Point B)
 
 
 /**
-#C9.Andrew算法求点集凸包
+#C10.Andrew算法求点集凸包
 需要条件：A1
 **/
-/*C9.1: 求得的凸包存在 vector<Point> ch 内*/
+/*C10.1: 求得的凸包存在 vector<Point> ch 内*/
 //如果不希望在凸包的边上有输入点，把两个 <= 改成 < （说明：这里lrj可能写错了，应该是凸包边上无点：<= ；有点：<）
 //如果不介意点集被修改，可以改成传递引用（不能修改就去掉&）
 int ConvexHull(vector<Point> &p,vector<Point> &ch)
@@ -238,7 +249,7 @@ int ConvexHull(vector<Point> &p,vector<Point> &ch)
     return m;  //返回的点集逆时针排序
 }
 
-/*C9.2: 求得的凸包存在 Point *ch 内*/
+/*C10.2: 求得的凸包存在 Point *ch 内*/
 //求凸包，如果不希望凸包边上有输入点，把<=改成< （说明：这里lrj可能写错了，应该是凸包边上无点：<= ；有点：<）
 int ConvexHull(Point *p,int n,Point *ch)
 {
@@ -265,7 +276,7 @@ int ConvexHull(Point *p,int n,Point *ch)
 
 
 /**
-#C10.判断是否是凸包（向量法判断）
+#C11.判断是否是凸包（向量法判断）
 需要条件：A1
 **/
 bool isConvexHull(Point *p,int n)
@@ -284,7 +295,7 @@ bool isConvexHull(Point *p,int n)
 
 
 /**
-#C11.判断圆是否在多边形内
+#C12.判断圆是否在多边形内
 需要条件：A1,A5,B1,C1
 **/
 //如果圆边界上的点可以与凸包的边重合，则把<改为<=
