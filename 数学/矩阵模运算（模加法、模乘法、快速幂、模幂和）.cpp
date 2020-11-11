@@ -1,30 +1,38 @@
-//矩阵快速幂模板
-
-#define MAXN 55
-#define LL long long
-#define MOD 1000000007
 
 typedef LL Type;
+
+const int MAXN = 55;
+const LL MOD = 1000000007;
 
 int n;
 Type mod;
 
-struct Matrix   //矩阵的类
+/* 矩阵类 */
+struct Matrix
 {
     Type x[MAXN][MAXN];
     void init()
     {
         memset(x, 0, sizeof(x));
     }
-    void toIdentity() //初始化为单位矩阵
+    /* 初始化为单位矩阵 */
+    void toIdentity()
     {
         memset(x, 0, sizeof(x));
         for(int i = 0; i < n; i++)
             x[i][i] = 1;
     }
+    /* 输出矩阵 */
+    void print()
+    {
+        for(int i = 0; i < n; i++)
+            for(int j = 0; j < n; j++)
+                printf("%lld%c", x[i][j], j == n - 1 ? '\n' : ' ');
+    }
 } A;
 
-Matrix mul(Matrix a, Matrix b)   //(a*b)%mod 矩阵乘法
+/* 矩阵模乘法 */
+Matrix mul(Matrix a, Matrix b)  //(a * b) % mod
 {
     Matrix ans;
     for(int i = 0; i < n; i++)
@@ -40,7 +48,8 @@ Matrix mul(Matrix a, Matrix b)   //(a*b)%mod 矩阵乘法
     return ans;
 }
 
-Matrix add(Matrix a, Matrix b)   //(a+b)%mod 矩阵加法
+/* 矩阵模加法 */
+Matrix add(Matrix a, Matrix b)  //(a + b) % mod
 {
     int i, j;
     Matrix ans;
@@ -55,13 +64,14 @@ Matrix add(Matrix a, Matrix b)   //(a+b)%mod 矩阵加法
     return ans;
 }
 
-Matrix pow(Matrix a, Type k)  //(a^n)%mod 矩阵快速幂
+/* 矩阵快速幂 */
+Matrix pow(Matrix a, Type k)    //(a ^ n) % mod
 {
     Matrix ans;
     ans.toIdentity();
     while(k)
     {
-        if(k & 1) //k%2
+        if(k & 1)   //k % 2
             ans = mul(ans, a);
         k /= 2;
         a = mul(a, a);
@@ -69,23 +79,17 @@ Matrix pow(Matrix a, Type k)  //(a^n)%mod 矩阵快速幂
     return ans;
 }
 
-Matrix sum(Matrix a, Type k)  //(a+a^2+a^3....+a^n)%mod 矩阵的幂和
+/* 矩阵模幂和 */
+Matrix sum(Matrix a, Type k)    //(a + a ^ 2 + a ^ 3 + ... + a ^ n) % mod
 {
     Type m;
     Matrix ans, pre;
     if(k == 1)
         return a;
     m = k / 2;
-    pre = sum(a, m);   //[1,n/2]
-    ans = add(pre, mul(pre, pow(a, m))); //ans=[1,n/2]+a^(n/2)*[1,n/2]
+    pre = sum(a, m);    //[1, n / 2]
+    ans = add(pre, mul(pre, pow(a, m)));    //ans = [1, n / 2] + a ^ (n / 2) * [1, n / 2]
     if(n & 1)
-        ans = add(ans, pow(a, k));  //ans=ans+a^n
+        ans = add(ans, pow(a, k));  // ans = ans + a ^ n
     return ans;
-}
-
-void print(Matrix a)    //输出矩阵
-{
-    for(int i = 0; i < n; i++)
-        for(int j = 0; j < n; j++)
-            printf("%lld%c", a.x[i][j], j == n - 1 ? '\n' : ' ');
 }
