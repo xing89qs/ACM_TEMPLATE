@@ -36,7 +36,7 @@ struct Point
 {
     Type x, y;
     //int belong;   //属于哪一个圆
-    Point(Type x=0,Type y=0):x(x),y(y) {}
+    Point(Type x = 0, Type y = 0) : x(x), y(y) {}
 
     Vector operator + (const Vector& rhs) const
     {
@@ -56,7 +56,7 @@ struct Point
     }
     bool operator < (const Point& rhs) const
     {
-        return dcmp(x - rhs.x) < 0 || (dcmp(x-rhs.x)==0 && dcmp(y-rhs.y) < 0);
+        return dcmp(x - rhs.x) < 0 || (dcmp(x - rhs.x) == 0 && dcmp(y - rhs.y) < 0);
     }
     /*
     bool operator < (const Point& rhs) const
@@ -91,12 +91,12 @@ struct Point
 
     void read()
     {
-        scanf("%lf%lf",&x,&y);
+        scanf("%lf%lf", &x, &y);
     }
 
     void print() const
     {
-        printf("(%f, %f)",x,y);
+        printf("(%f, %f)", x, y);
     }
 };
 
@@ -106,7 +106,7 @@ struct Point
 需要条件：A1
 **/
 //距离
-Type Length(Point p1,Point p2)
+Type Length(Point p1, Point p2)
 {
     Type x = p1.x - p2.x, y = p1.y - p2.y;
     return sqrt(x * x + y * y);
@@ -119,36 +119,36 @@ Type Length(Vector v)
 }
 
 //叉积
-Type Cross(Vector v1,Vector v2)
+Type Cross(Vector v1, Vector v2)
 {
     return v1.x * v2.y - v1.y * v2.x;
 }
 
-Type Cross(Point &p1,Point &p2,Point &p3)
+Type Cross(Point &p1, Point &p2, Point &p3)
 {
-    return Cross(p1-p3,p2-p3);
+    return Cross(p1 - p3, p2 - p3);
 }
 
 //点积
-Type Dot(Vector v1,Vector v2)
+Type Dot(Vector v1, Vector v2)
 {
     return v1.x * v2.x + v1.y * v2.y;
 }
 
 //向量的夹角 a*b=|a||b|cosα
-Type Angle(Vector v1,Vector v2)
+Type Angle(Vector v1, Vector v2)
 {
     return acos(v1 * v2 / Length(v1) / Length(v2));
 }
 
 //AB x AC组成的空间
-double Area2(Point p1,Point p2,Point p3)
+double Area2(Point p1, Point p2, Point p3)
 {
     return (p2 - p1) ^ (p3 - p1);
 }
 
 //向量逆时针旋转rad弧度
-Vector Rotate(Vector v,double rad)
+Vector Rotate(Vector v, double rad)
 {
     return Vector(v.x * cos(rad) - v.y * sin(rad), v.x * sin(rad) + v.y * cos(rad));
 }
@@ -158,7 +158,7 @@ Vector Rotate(Vector v,double rad)
 Vector Normal(Vector v)
 {
     Type l = Length(v);
-    return Vector(-v.y/l,v.x/l);
+    return Vector(-v.y / l, v.x / l);
 }
 
 //单位向量
@@ -393,46 +393,47 @@ bool AngleCmp(const Point &a,const Point &b)    //先按象限排序，再按极
 #A13.分治法求平面最近点对
 需要条件：A1,A2
 **/
+//先对点按照先x后y进行排序，然后调用closestPair(l, r)进行扫描即可
 Point p[MAXN];
 int tmp[MAXN];
 
-bool cmp(Point a,Point b)
+bool cmp(Point a, Point b)  //对点先x坐标后y坐标排序
 {
     if(a.x == b.x)
         return a.y < b.y;
     return a.x < b.x;
 }
 
-bool cmpy(int idxa,int idxb)
+bool cmpy(int idxa, int idxb)   //对y坐标进行排序
 {
     return p[idxa].y < p[idxb].y;
 }
 
-double closestPair(int left,int right)
+double closestPair(int left, int right)
 {
     double d = INF;
     if(left == right)
         return d;
     if(left + 1 == right)
-        return Length(p[left],p[right]);
+        return Length(p[left], p[right]);
     int mid = (left + right) >> 1;
-    double d1 = closestPair(left,mid);
-    double d2 = closestPair(mid+1,right);
-    d = min(d1,d2);
+    double d1 = closestPair(left, mid);
+    double d2 = closestPair(mid + 1, right);
+    d = min(d1, d2);
     int k = 0;
     //分离出宽度为d的区间
-    for(int i=left; i<=right; i++)
+    for(int i = left; i <= right; i++)
     {
-        if(fabs(p[mid].x-p[i].x) <= d)
+        if(fabs(p[mid].x - p[i].x) <= d)
             tmp[k++] = i;
     }
-    sort(tmp,tmp+k,cmpy);
+    sort(tmp, tmp + k, cmpy);
     //线性扫描
-    for(int i=0; i<k; i++)
+    for(int i = 0; i < k; i++)
     {
-        for(int j=i+1; j<k && p[tmp[j]].y-p[tmp[i]].y<d; j++)
+        for(int j = i + 1; j < k && p[tmp[j]].y - p[tmp[i]].y < d; j++)
         {
-            double d3 = Length(p[tmp[i]],p[tmp[j]]);
+            double d3 = Length(p[tmp[i]], p[tmp[j]]);
             if(d > d3)
                 d = d3;
         }
