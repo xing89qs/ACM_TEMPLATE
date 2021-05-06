@@ -160,6 +160,12 @@ ACM模板
 
 ### 小算法（杂项）
 
++ #### Dancing Link（舞蹈链算法）
+
+  + **[DLX 精确覆盖](https://github.com/ThoseBygones/ACM_TEMPLATE/blob/master/常用小算法汇总/DLX（精确覆盖）.cpp)**
+  + **[DLX 重复覆盖](https://github.com/ThoseBygones/ACM_TEMPLATE/blob/master/常用小算法汇总/DLX（重复覆盖）.cpp)**
+  + **[DLX 解数独问题](https://github.com/ThoseBygones/ACM_TEMPLATE/blob/master/常用小算法汇总/DLX精确覆盖解数独.cpp)**
+
 + #### [dfs序](https://github.com/ThoseBygones/ACM_TEMPLATE/blob/master/常用小算法汇总/dfs序.cpp)
 
 + #### [二分查找](https://github.com/ThoseBygones/ACM_TEMPLATE/blob/master/常用小算法汇总/二分查找.cpp)
