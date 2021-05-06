@@ -1,6 +1,4 @@
 
-//行编号从1开始，列编号为1~n，结点0是表头结点; 结点1~n是各列顶部的虚拟结点
-
 class DLX
 {
 public:
@@ -10,7 +8,7 @@ public:
     int row[MAXNODE], col[MAXNODE]; //row/col数组用来记录某个标号的结点在矩阵中的行号和列号
     int L[MAXNODE], R[MAXNODE], U[MAXNODE], D[MAXNODE]; //U/D/R/L数组用来记录某个标号的结点的上下左右结点的编号（十字链表）
 
-    int ansd, ans[MAXM];    //解的数量和解
+    int ansd, ans[MAXN];    //解的数量和解
 
     void init(int m)    //m为列数
     {
@@ -26,6 +24,7 @@ public:
         memset(S, 0, sizeof(S));
     }
 
+    //行列都是从1开始标号
     void addRow(int r, vector<int>& columns)
     {
         int first = sz;
@@ -51,18 +50,19 @@ public:
     {
         L[R[c]] = L[c];
         R[L[c]] = R[c];
+        --S[col[c]];
     }
 
     //删除列
     void removeCol(int c)
     {
-        removeNode(c);
         for(int i = D[c]; i != c; i = D[i])
-            removeRow(i);
+            removeNode(i);
     }
 
     void restoreNode(int c)
     {
+        ++S[col[c]];
         L[R[c]] = c;
         R[L[c]] = c;
     }
@@ -71,40 +71,42 @@ public:
     void restoreCol(int c)
     {
         for(int i = U[c]; i != c; i = U[i])
-            restoreRow(i);
-        restoreNode(c);
+            restoreNode(i);
     }
-
-    void removeRow(int r)
-    {
-        for(int j = R[r]; j != r; j = R[j])
-        {
-            U[D[j]] = U[j];
-            D[U[j]] = D[j];
-            --S[col[j]];
-        }
-    }
-
-    void restoreRow(int r)
-    {
-        for(int j = L[r]; j != r; j = L[j])
-        {
-            ++S[col[j]];
-            U[D[j]] = j;
-            D[U[j]] = j;
-        }
-    }
-
 
     int ret;
     int vis[MAXN];
 
-    void dfs(int d, int cost)
+    int h() //估价函数：模拟删除列，函数返回的是至少还需要多少行才能完成重复覆盖
     {
+        memset(vis, 0, sizeof(vis));
+        int res = 0;
+        for(int i = R[0]; i != 0; i = R[i])
+        {
+            if(vis[col[i]])
+                continue;
+            vis[col[i]] = 1;
+            ++res;
+            for(int j = D[i]; j != i; j = D[j])
+            {
+                if(col[j])
+                {
+                    for(int k = R[j]; k != j; k = R[k])
+                        vis[col[k]] = 1;
+                }
+            }
+        }
+        return res;
+    }
+
+    bool dfs(int d, int cost)
+    {
+        if(cost + h() > k)
+            return false;
         if(R[0] == 0)
         {
-            ret = cost;
-            return;
+            //ansd = min(ansd, d);
+            return true;
         }
         //找S最小的列来删除加速
         int c = R[0];
@@ -113,23 +115,32 @@ public:
             if(S[i] < S[c])
                 c = i;
         }
-        removeCol(c);
         for(int i = D[c]; i != c; i = D[i])
         {
-            ans[d] = row[i];    //记录解
+            //ans[d] = row[i];  //记录解
+            removeCol(i);
             for(int j = R[i]; j != i; j = R[j])
-                removeCol(col[j]);
-            dfs(d + 1, cost + ::c[row[i] - 1]);
+                removeCol(j);
+            if(dfs(d + 1, cost + 1))
+                return true;
             for(int j = L[i]; j != i; j = L[j])
-                restoreCol(col[j]);
+                restoreCol(j);
+            restoreCol(i);
         }
-        restoreCol(c);
+        return false;
     }
 
-    int solve()
+    void solve()
     {
-        ret = INF;
+        for(ansd = 0; ansd <= m; ansd++)
+        {
+            if(dfs(0, 0))
+                break;
+        }
+        /*
+        ansd = INF;
         dfs(0, 0);
-        return ret;
+        */
+        printf("%d\n", ansd);
     }
 } dlx;
