@@ -37,6 +37,8 @@ ACM模板
 
 + #### [Trie字典树](https://github.com/ThoseBygones/ACM_TEMPLATE/blob/master/字符串/Trie.cpp)
 
++ #### [AC自动机](https://github.com/ThoseBygones/ACM_TEMPLATE/blob/master/字符串/AC_Automation.cpp)
+
 
 
 ### 数据结构
@@ -49,6 +51,8 @@ ACM模板
 + #### [树状数组](https://github.com/ThoseBygones/ACM_TEMPLATE/blob/master/数据结构/树状数组.cpp)
 
 + #### [二维树状数组](https://github.com/ThoseBygones/ACM_TEMPLATE/blob/master/数据结构/二维树状数组.cpp)
+
++ #### [树链剖分](https://github.com/ThoseBygones/ACM_TEMPLATE/blob/master/数据结构/树链剖分.cpp)（我竟然还学过这个东西？？？）
 
 
 
@@ -121,9 +125,12 @@ ACM模板
 
 + #### 数论
 
+  + [**FFT（快速傅里叶变换）**](https://github.com/ThoseBygones/ACM_TEMPLATE/blob/master/数学/FFT.cpp)
   + [**Miller_Robin素性测试+Pollard_rho大数因数分解**](https://github.com/ThoseBygones/ACM_TEMPLATE/blob/master/数学/Miller_Robin素性测试%2BPollard_rho大数因数分解.cpp)
+  + [**埃氏筛求反素数（线性筛求反素数）**](https://github.com/ThoseBygones/ACM_TEMPLATE/blob/master/数学/埃氏筛求反素数（线性筛求反素数）.cpp)
+  + [**欧拉函数**](https://github.com/ThoseBygones/ACM_TEMPLATE/blob/master/数学/欧拉函数.cpp)
   + [**快速幂**](https://github.com/ThoseBygones/ACM_TEMPLATE/blob/master/数学/快速幂.cpp)
-  + [**矩阵快速幂**](https://github.com/ThoseBygones/ACM_TEMPLATE/blob/master/数学/矩阵快速幂（自制版）.cpp)
+  + [**矩阵快速幂**](https://github.com/ThoseBygones/ACM_TEMPLATE/blob/master/数学/矩阵模运算（模加法、模乘法、快速幂、模幂和）.cpp)
   + [**辗转相除法（欧几里得算法）**](https://github.com/ThoseBygones/ACM_TEMPLATE/blob/master/数学/辗转相除法（欧几里得）.cpp)
   + [**扩展欧几里得算法**](https://github.com/ThoseBygones/ACM_TEMPLATE/blob/master/数学/扩展欧几里得.cpp)
   + [**求逆元**](https://github.com/ThoseBygones/ACM_TEMPLATE/blob/master/数学/逆元.cpp)
@@ -142,7 +149,7 @@ ACM模板
 
 ### 计算几何
 
-+ [*计算几何模板详细目录*](https://github.com/ThoseBygones/ACM_TEMPLATE/blob/master/计算几何/计算几何模板目录.txt)
+[*计算几何模板详细目录*](https://github.com/ThoseBygones/ACM_TEMPLATE/blob/master/计算几何/计算几何模板目录.txt)
 
 + [**A. 点、向量、直线与线段相关算法**](https://github.com/ThoseBygones/ACM_TEMPLATE/blob/master/计算几何/A.%20点、向量、直线与线段相关算法.cpp)
 
@@ -162,9 +169,9 @@ ACM模板
 
 + #### Dancing Link（舞蹈链算法）
 
-  + **[DLX 精确覆盖](https://github.com/ThoseBygones/ACM_TEMPLATE/blob/master/常用小算法汇总/DLX（精确覆盖）.cpp)**
-  + **[DLX 重复覆盖](https://github.com/ThoseBygones/ACM_TEMPLATE/blob/master/常用小算法汇总/DLX（重复覆盖）.cpp)**
-  + **[DLX 解数独问题](https://github.com/ThoseBygones/ACM_TEMPLATE/blob/master/常用小算法汇总/DLX精确覆盖解数独.cpp)**
+  + [**DLX 精确覆盖**](https://github.com/ThoseBygones/ACM_TEMPLATE/blob/master/常用小算法汇总/DLX（精确覆盖）.cpp)
+  + [**DLX 重复覆盖**](https://github.com/ThoseBygones/ACM_TEMPLATE/blob/master/常用小算法汇总/DLX（重复覆盖）.cpp)
+  + [**DLX 解数独问题**](https://github.com/ThoseBygones/ACM_TEMPLATE/blob/master/常用小算法汇总/DLX精确覆盖解数独.cpp)
 
 + #### [dfs序](https://github.com/ThoseBygones/ACM_TEMPLATE/blob/master/常用小算法汇总/dfs序.cpp)
 
@@ -186,10 +193,11 @@ ACM模板
 
 + #### [线性预处理逆元](https://github.com/ThoseBygones/ACM_TEMPLATE/blob/master/常用小算法汇总/线性预处理逆元.cpp)
 
-+ #### [莫队算法](https://github.com/ThoseBygones/ACM_TEMPLATE/blob/master/常用小算法汇总/莫队算法.cpp)
++ #### [莫队算法](https://github.com/ThoseBygones/ACM_TEMPLATE/blob/master/常用小算法汇总/莫队算法.cpp)（我好像没有学过这个东西却莫名的会用这个模板？？？）
 
 
 
 ## 未测过（即将测试）的模板目录：
 
-+ 暂无（看心情吧，不知道下面想学啥...）
++ **斜率dp**
++ 莫队算法（补学一下并更新一下模板）
