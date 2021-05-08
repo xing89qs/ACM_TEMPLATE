@@ -648,3 +648,63 @@ int main()
     //cout << toBigInteger(A) / toBigInteger(B) << endl;
     //cout << toBigInteger(A) % toBigInteger(B) << endl;
 }
+
+
+/* 模板三：快速傅里叶变换（FFT）求大数乘法 */
+
+/* 需要数学分类中的FFT模板 */
+void FFT_Mul(char *s1, char *s2)    //传入的是两个相乘的大数
+{
+    int len1 = strlen(s1), len2 = strlen(s2);
+    reverse(s1, s1 + len1);
+    reverse(s2, s2 + len2);
+    int sign = 0;   //符号
+    if(s1[len1 - 1] == '-')
+    {
+        len1--;
+        sign ^= 1;
+    }
+    if(s2[len2 - 1] == '-')
+    {
+        len2--;
+        sign ^= 1;
+    }
+    for(int i = 0; i < len1; i++)
+        a[i] = (double)(s1[i] - '0');
+    for(int i = 0; i < len2; i++)
+        b[i] = (double)(s2[i] - '0');
+    int len = 1;
+    while(len < len1 + len2 - 1)
+        len <<= 1;
+    solve(len);
+    for(int i = 0; i < len; i++)
+    {
+        ans[i] += (int)(a[i].real() + 0.5);
+        ans[i + 1] += ans[i] / 10;
+        ans[i] %= 10;
+    }
+    while(len >= 0 && !ans[len])
+        len--;
+    if(len == -1)
+        puts("0");
+    else
+    {
+        if(sign)
+            printf("-");
+        for(int i = len; i >= 0; i--)
+        {
+            if(i == len && !ans[len])
+                continue;
+            printf("%d", ans[i]);
+        }
+        puts("");
+    }
+}
+
+int main()
+{
+    scanf("%s%s", s1, s2);
+    FFT_Mul(s1, s2);
+    return 0;
+}
+
