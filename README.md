@@ -17,7 +17,7 @@ ACM模板
 
 ### 高精度模板
 
-+ [**C++大数类**](https://github.com/ThoseBygones/ACM_TEMPLATE/blob/master/高精度/C%2B%2B大数类.cpp)
++ [**C++大数类（加减乘除取模）**](https://github.com/ThoseBygones/ACM_TEMPLATE/blob/master/高精度/C++大数类（高精度大整数加减乘除取模）.cpp)
 
 + [**Java高精度与字符串**](https://github.com/ThoseBygones/ACM_TEMPLATE/blob/master/高精度/Java高精度与字符串.java)
 
