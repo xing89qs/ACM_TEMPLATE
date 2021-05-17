@@ -52,6 +52,8 @@ ACM模板
 
 + #### [二维树状数组](https://github.com/ThoseBygones/ACM_TEMPLATE/blob/master/数据结构/二维树状数组.cpp)
 
++ #### [ST表](https://github.com/ThoseBygones/ACM_TEMPLATE/blob/master/数据结构/ST表RMQ.cpp)
+
 + #### [树链剖分](https://github.com/ThoseBygones/ACM_TEMPLATE/blob/master/数据结构/树链剖分.cpp)（我竟然还学过这个东西？？？）
 
 
