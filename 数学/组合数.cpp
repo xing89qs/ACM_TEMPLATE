@@ -1,6 +1,6 @@
-//求组合数
 
-/*线性预处理逆元*/
+/* 线性预处理逆元 */
+
 LL inv[MAXN];
 LL res[MAXN];
 LL fac[MAXN];
@@ -20,13 +20,16 @@ void initInv()
 
 LL C(int n, int m)  //求组合数C(n,m)
 {
-    if (m == 0 || m == n)
+    if(n < m || m < 0)  //过滤不合法的输入
+        return 0;
+    if(m == 0 || m == n)
         return 1;
     return fac[n] * res[n - m] % MOD * res[m] % MOD;
 }
 
 
-/*Lucas定理求逆元*/
+/* Lucas定理求逆元 */
+
 LL inv[MAXN];
 LL fac[MAXN];
 
@@ -43,5 +46,7 @@ void initInv()
 
 LL C(int n, int m)  //求组合数C(n,m)
 {
+    if(n < m || m < 0)  //过滤不合法的输入
+        return 0;
     return (fac[n] * inv[m] % MOD) * inv[n - m] % MOD;
 }
