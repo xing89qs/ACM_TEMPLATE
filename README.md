@@ -43,6 +43,8 @@ ACM模板
 
 ### 数据结构
 
++ #### [并查集（单点修改、撤销）](https://github.com/ThoseBygones/ACM_TEMPLATE/blob/master/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/%E5%8F%AF%E4%BF%AE%E6%94%B9%EF%BC%88%E6%92%A4%E9%94%80%EF%BC%89%E5%B9%B6%E6%9F%A5%E9%9B%86.cpp)
+
 + #### 线段树
 
   + [**线段树（数组版）**](https://github.com/ThoseBygones/ACM_TEMPLATE/blob/master/数据结构/线段树（数组版）.cpp)
